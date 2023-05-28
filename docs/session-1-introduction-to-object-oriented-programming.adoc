@@ -1,7 +1,10 @@
 = Introduction to Object-Oriented Programming in C for Embedded Systems
+:sectnums:
+:imagesdir: media
 
 == Object-Oriented Programming (OOP)
-Object-Oriented Programming (OOP) is a programming paradigm that organizes code around objects and their interactions. It encourages modular, reusable, and maintainable code.
+Object-oriented programming (OOP) is a programming paradigm that revolves around the concept of objects, which encapsulate data and behavior. In OOP, programs are designed by creating classes, which serve as templates for creating objects. Each object has its own set of properties and methods, which can be used to manipulate or interact with the object.
+One of the main advantages of OOP is its ability to organize complex code into smaller, more manageable pieces. This makes it easier to write, test, and maintain code, especially in large-scale projects. Additionally, OOP promotes code reusability, as classes can be reused across multiple projects.
 
 == Advantages of OOP in Embedded Systems
 * Code reusability: Reuse existing classes and libraries across projects
@@ -14,13 +17,29 @@ OOP is a programming paradigm.
 
 The concept of OOP emerged before the development of specific programming languages designed for it. OOP principles and ideas were initially conceived as a way to organize and structure software systems, and they later influenced the creation of programming languages that supported those concepts.
 
-While the C programming language does not natively support OOP features, it is possible to apply some OOP concepts and principles in C code by following certain practices and techniques. 
+While C is not inherently an object-oriented language, it is possible to implement OOP principles through the use of structs, functions and function pointers. Structs can be used to define objects, while functions and function pointers can be used to define methods that operate on those objects.
+One popular approach to implementing OOP in C is the use of a struct-based inheritance model, where child structs inherit properties and methods from parent structs. This allows for code reuse and promotes modularity.
+
+When implementing OOP in C for embedded systems, it is important to follow best practices to ensure code quality and maintainability. This includes proper memory management, avoiding global variables, and adhering to coding standards.
 
 == Encapsulation and Data Hiding
 * Encapsulation: Bundling data and functions into a single unit (class)
 * Data hiding: Restricting access to internal data of a class
 
-=== Encapsulation
+
+=== Example in C:
+[plantuml, target=diag-object-class-uml-representation]
+.Object class UML representation
+----
+class Object {
+    + attribute : uint32_t
+    + init() : void
+    + setAttribute(attribute : uint32_t) : void
+    + getAttribute() : uint32_t
+}
+----
+
+==== Encapsulation
 .Object.h
 [source,c]
 ----
@@ -64,7 +83,7 @@ int main() {
 }
 ----
 
-=== Data hiding
+==== Data hiding
 .Object.h
 [source,c]
 ----
@@ -119,8 +138,26 @@ int main() {
 ----
 
 == Abstraction and Modularity
-- Abstraction: Simplifying complex systems by representing essential features
-- Modularity: Breaking down a system into independent and reusable components (classes)
+* Abstraction: Simplifying complex systems by representing essential features
+* Modularity: Breaking down a system into independent and reusable components (classes)
+
+=== Example in C:
+[plantuml, target=diag-timer-class-uml-representation]
+.Timer class UML representation (Timer depends on TimeSource)
+----
+class Timer {
+    + startTimeInMillis : uint32_t
+    + delayInMillis : uint32_t
+    + init() : Timer
+    + start(delayInMillis : uint32_t) : void
+    + stop() : void
+    + isExpired() : bool
+}
+class TimeSource {
+    + getCurrentTimeInMillis() : uint32_t
+}
+Timer -r-> TimeSource
+----
 
 .Timer.h
 [source,c]
@@ -182,8 +219,29 @@ int main() {
 ----
 
 == Inheritance and Polymorphism
-- Inheritance: Creating new classes (derived classes) based on existing classes (base classes)
-- Polymorphism: Ability of objects to take on different forms or behaviors
+* Inheritance: Creating new classes (derived classes) based on existing classes (base classes)
+* Polymorphism: Ability of objects to take on different forms or behaviors
+
+=== Example in C:
+[plantuml, target=diag-shape-and-rectangle-class-uml-representation]
+.Shape and Rectangle class UML representation (Rectangle extends Shape)
+----
+class Shape {
+    + x : uint32_t
+    + y : uint32_t
+    + init(x : uint32_t, y : uint32_t) : Shape
+    + area() : float
+}
+class Rectangle {
+    + width : uint32_t
+    + height : uint32_t
+    + getWidth() : uint32_t
+    + setWidth(width : uint32_t) : void
+    + getHeight() : uint32_t
+    + setHeight(height : uint32_t) : void
+}
+Shape <|-d- Rectangle
+----
 
 .Shape.h
 [source,c]
@@ -245,6 +303,22 @@ void Rectangle_setHeight(Rectangle * const self, uint32_t const height);
 float Rectangle_area(Rectangle const * const self);
 ----
 
+[plantuml, target=diag-rectangle-object-in-memory]
+.Rectangle object in memory
+----
+object Rectangle {
+    shape.x
+    ..
+    shape.y
+    ..
+    shape.area
+    --
+    width
+    ..
+    height
+}
+----
+
 .Rectangle.c
 [source,c]
 ----
@@ -282,7 +356,7 @@ float Rectangle_area(Rectangle const * const self) {
 }
 ----
 
-.Rectangle.c
+.main.c
 [source,c]
 ----
 include "Rectangle.h"
@@ -297,9 +371,9 @@ int main() {
 ----
 
 == Summary
-- OOP organizes code around objects and their interactions
-- OOP brings advantages like code reusability, modularity, maintainability, encapsulation
-- C supports OOP techniques
-- Encapsulation, abstraction, inheritance, and polymorphism are key OOP concepts
+* OOP organizes code around objects and their interactions
+* OOP brings advantages like code reusability, modularity, maintainability, encapsulation
+* C supports OOP techniques
+* Encapsulation, abstraction, inheritance, and polymorphism are key OOP concepts
 
 == Questions?
