@@ -76,7 +76,7 @@ uint32_t Object_getAttribute(Object * const self) {
 
 int main() {
     Object obj;
-    Object_init(&obj);                      // obj.init();
+    Object_init(&obj);                      // new Object();
     Object_setAttribute(&obj, 5);           // obj.setAttribute(5);
     uint32_t a = Object_getAttribute(&obj); // obj.getAttribute();
     return 0;
@@ -153,7 +153,7 @@ class Timer {
     + stop() : void
     + isExpired() : bool
 }
-class TimeSource {
+interface TimeSource {
     + getCurrentTimeInMillis() : uint32_t
 }
 Timer -r-> TimeSource
@@ -230,11 +230,12 @@ class Shape {
     + x : uint32_t
     + y : uint32_t
     + init(x : uint32_t, y : uint32_t) : Shape
-    + area() : float
+    + {virtual} area() : float
 }
 class Rectangle {
     + width : uint32_t
     + height : uint32_t
+    + init(x : uint32_t, y : uint32_t, width : uint32_t, height : uint32_t) : Rectangle
     + getWidth() : uint32_t
     + setWidth(width : uint32_t) : void
     + getHeight() : uint32_t
