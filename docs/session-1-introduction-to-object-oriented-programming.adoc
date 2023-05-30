@@ -112,6 +112,7 @@ Object * Object_getInstance(void) {
     static bool isInitialized = false;
     if (isInitialized == false) {
         Object_init(&self);
+        isInitialized = true;
     }
     return &self;
 }
