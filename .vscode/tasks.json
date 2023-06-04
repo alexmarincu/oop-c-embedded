@@ -21,7 +21,8 @@
         {
             "label": "Run App",
             "type": "shell",
-            "command": "build/artifacts/release/App.exe",
+            // "command": "build/artifacts/release/oopce.exe",
+            "command": "build/artifacts/release/oopce.out",
             "group": "build",
             "problemMatcher": []
         },
@@ -33,7 +34,7 @@
             "problemMatcher": []
         },
         {
-            "label": "Run All Tests",
+            "label": "Test",
             "type": "shell",
             "command": "ceedling test:all",
             "group": {
@@ -43,7 +44,7 @@
             "problemMatcher": []
         },
         {
-            "label": "Run All Tests with Coverage",
+            "label": "Test with Coverage",
             "type": "shell",
             "command": "ceedling gcov:all utils:gcov",
             "group": "test",

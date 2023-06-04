@@ -6,7 +6,7 @@
     "configurations": [
         {
             "name": "Test Debug",
-            "miDebuggerPath": "C:\\Users\\uidn8285\\scoopless\\gcc\\11.2.0\\bin\\gdb.exe",
+            // "miDebuggerPath": "C:\\Users\\uidn8285\\scoopless\\gcc\\11.2.0\\bin\\gdb.exe",
             "type": "cppdbg",
             "program": "${workspaceRoot}/build/test/out/test_${input:name}.exe",
             "request": "launch",
@@ -25,9 +25,10 @@
         },
         {
             "name": "Debug",
-            "miDebuggerPath": "C:\\Users\\uidn8285\\scoopless\\gcc\\11.2.0\\bin\\gdb.exe",
+            // "miDebuggerPath": "C:\\Users\\uidn8285\\scoopless\\gcc\\11.2.0\\bin\\gdb.exe",
             "type": "cppdbg",
-            "program": "${workspaceRoot}/build/release/App.exe",
+            // "program": "${workspaceRoot}/build/release/oopce.exe",
+            "program": "${workspaceRoot}/build/release/oopce.out",
             "request": "launch",
             "cwd": "${workspaceRoot}",
             "args": [],

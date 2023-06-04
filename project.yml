@@ -12,15 +12,17 @@
     - release
 
 :release_build:
-  :output: App.exe
+  # :output: oopce.exe
+  :output: oopce.out
 
 :environment:
-  - :path:
-    - C:\Users\uidn8285\scoopless\gcc\11.2.0\bin
-    - C:\Users\uidn8285\scoop\apps\python\3.10.8\Scripts
+  # - :path:
+  #   - C:\Users\uidn8285\scoopless\gcc\11.2.0\bin
+  #   - C:\Users\uidn8285\scoop\apps\python\3.10.8\Scripts
 
 :extension:
-  :executable: .exe
+  # :executable: .exe
+  :executable: .out
 
 :paths:
   :test:

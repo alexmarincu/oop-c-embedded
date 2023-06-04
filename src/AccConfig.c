@@ -1,26 +1,26 @@
-#include "AccelConfig.h"
+#include "AccConfig.h"
 
-struct AccelConfig {
+struct AccConfig {
     Subject subject;
     bool isSimulatorEnabled;
 };
 
-AccelConfig * AccelConfig_getInstance(void) {
-    static AccelConfig self;
+AccConfig * AccConfig_getInstance(void) {
+    static AccConfig self;
     return &self;
 }
 
-AccelConfig * AccelConfig_init(AccelConfig * const self) {
-    *self = (AccelConfig){
+AccConfig * AccConfig_init(AccConfig * const self) {
+    *self = (AccConfig){
         .subject = {
-            .observers = { NULL },
+            .observers = { 0 },
             .count = 0 },
         .isSimulatorEnabled = false
     };
     return self;
 }
 
-void AccelConfig_toggleAccelDriver(AccelConfig * const self) {
+void AccConfig_toggleAccDriver(AccConfig * const self) {
     self->isSimulatorEnabled = !self->isSimulatorEnabled;
     Subject_notifyObservers(&self->subject, &self->isSimulatorEnabled);
 }

@@ -1,7 +1,7 @@
-#include "SimOs.h"
+#include "Os.h"
 
 int main(void) {
-    SimOs * simOs = SimOs_init(SimOs_getInstance());
-    SimOs_main(simOs);
+    Os * os = Os_init(Os_getInstance());
+    Os_run(os);
     return 0;
 }

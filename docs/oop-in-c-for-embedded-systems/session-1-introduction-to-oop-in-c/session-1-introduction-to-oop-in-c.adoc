@@ -90,6 +90,7 @@ int main() {
 typedef struct Object Object;
 
 Object * Object_getInstance(void);
+void Object_init(Object * const self);
 void Object_setAttribute(Object * const self, uint32_t const attribute);
 uint32_t Object_getAttribute(Object * const self);
 ----
@@ -103,13 +104,13 @@ struct Object {
     uint32_t attribute;
 };
 
-static void Object_init(Object * const self) {
-    self->attribute = 0;
-}
-
 Object * Object_getInstance(void) {
     static Object self;
     return &self;
+}
+
+void Object_init(Object * const self) {
+    self->attribute = 0;
 }
 
 void Object_setAttribute(Object * const self, uint32_t const attribute) {
@@ -143,16 +144,16 @@ int main() {
 .Timer class UML representation (Timer depends on TimeSource)
 ----
 class Timer {
-    + startTimeInMs: uint32_t
-    + durationInMs: uint32_t
+    + startTimeIn1ms: uint32_t
+    + durationIn1ms: uint32_t
     + isRunning: bool
     + init(): Timer
-    + start(durationInMs: uint32_t): void
+    + start(durationIn1ms: uint32_t): void
     + stop(): void
     + isExpired(): bool
 }
 interface TimeSource {
-    + getCurrentTimeInMs(): uint32_t
+    + getCurrentTimeIn1ms(): uint32_t
 }
 Timer .r.> TimeSource
 ----
@@ -161,13 +162,13 @@ Timer .r.> TimeSource
 [source,c]
 ----
 typedef struct {
-    uint32_t startTimeInMs;
-    uint32_t durationInMs;
+    uint32_t startTimeIn1ms;
+    uint32_t durationIn1ms;
     bool isRunning;
 } Timer;
 
 Timer * Timer_init(Timer * const self);
-void Timer_start(Timer * const self, uint32_t const durationInMs);
+void Timer_start(Timer * const self, uint32_t const durationIn1ms);
 void Timer_stop(Timer * const self);
 bool Timer_isExpired(Timer const * const self);
 ----
@@ -179,15 +180,15 @@ bool Timer_isExpired(Timer const * const self);
 #include "TimeSource.h"
 
 Timer * Timer_init(Timer * const self) {
-    self->startTimeInMs = 0;
-    self->durationInMs = 0;
+    self->startTimeIn1ms = 0;
+    self->durationIn1ms = 0;
     self->isRunning = false;
     return self;
 }
 
-void Timer_start(Timer * const self, uint32_t const durationInMs) {
-    self->startTimeInMs = TimeSource_getCurrentTimeInMs();
-    self->durationInMs = durationInMs;
+void Timer_start(Timer * const self, uint32_t const durationIn1ms) {
+    self->startTimeIn1ms = TimeSource_getCurrentTimeIn1ms();
+    self->durationIn1ms = durationIn1ms;
     self->isRunning = true;
 }
 
@@ -198,7 +199,7 @@ void Timer_stop(Timer * const self) {
 bool Timer_isExpired(Timer const * const self) {
     return (
         (self->isRunning == true) &&
-        ((TimeSource_getCurrentTimeInMs() - self->startTimeInMs) >= self->durationInMs)
+        ((TimeSource_getCurrentTimeIn1ms() - self->startTimeIn1ms) >= self->durationIn1ms)
     );
 }
 ----
