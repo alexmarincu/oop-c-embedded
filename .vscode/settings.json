@@ -1,0 +1,8 @@
+{
+    "C_Cpp.intelliSenseEngine": "disabled",
+    "clangd.arguments": [
+        "--query-driver=C:\\Users\\uidn8285\\scoopless\\gcc\\11.2.0\\bin\\gcc.exe", //for cross compile usage
+        "--compile-commands-dir=build/artifacts",
+        "--header-insertion=never"
+    ]
+}

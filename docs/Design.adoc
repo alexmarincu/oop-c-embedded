@@ -1,0 +1,14 @@
+= Introduction to Object-Oriented Programming in C for Embedded Systems
+:sectnums:
+:imagesdir: media
+
+[plantuml, target=diag-object-class-uml-representation]
+.Object class UML representation
+----
+class Object {
+    + attribute : uint32_t
+    + init() : void
+    + setAttribute(attribute : uint32_t) : void
+    + getAttribute() : uint32_t
+}
+----
