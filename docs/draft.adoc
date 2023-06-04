@@ -1,18 +1,8 @@
-= oop-c
+= Object-Oriented Programming in C for Embedded Systems
 :toc: preamble
 :sectnums:
 
-Object oriented programming in C
-
-
-I want to created a series of trainings for my colleagues about object oriented programming in c focused on embedded systems. I would like to have a short theoretical introduction and then I would like to have a demo project in which to showcase the techniques. I would like to discuss also about SOLID principles, some basic design patterns and clean architecture. Help me prepare an outline and agenda for this. I would like you to help me also prepare a few presentation slides.
-
-Sure! I can help you prepare an outline and agenda for your training sessions on object-oriented programming in C focused on embedded systems. Here's a suggested outline:
-
-Title: Object-Oriented Programming in C for Embedded Systems
-
-======================================================================================
-Session 1: Introduction to Object-Oriented Programming
+== Session 1: Introduction to Object-Oriented Programming
 * Overview of OOP concepts
 * Advantages of using OOP in embedded systems
 * Introduction to the C programming language
@@ -20,75 +10,13 @@ Session 1: Introduction to Object-Oriented Programming
 * Abstraction and modularity
 * Inheritance and polymorphism
 
-Slides:
+.Slides:
 * Briefly define OOP and its benefits
 * Introduce the C programming language and its relevance to embedded systems
 * Explain encapsulation, abstraction, inheritance, and polymorphism with examples
 * Showcase how OOP can improve code maintainability and reusability
 
-
----
-Slide 1:
-[Title Slide]
-Introduction to Object-Oriented Programming in C for Embedded Systems
-
-Slide 2:
-[Definition of Object-Oriented Programming]
-Object-Oriented Programming (OOP)
-
-A programming paradigm that organizes code around objects and their interactions
-Encourages modular, reusable, and maintainable code
-Slide 3:
-[Advantages of OOP in Embedded Systems]
-Advantages of Using OOP in Embedded Systems
-
-Code reusability: Reuse existing classes and libraries across projects
-Modularity: Divide complex systems into smaller, manageable objects
-Maintainability: Changes in one object have minimal impact on other objects
-Encapsulation: Protects data and implementation details from external access
-Slide 4:
-[Introduction to C Programming Language]
-Introduction to C Programming Language
-
-Widely used in embedded systems due to its efficiency and low-level control
-Supports procedural programming, but with proper techniques, can also support OOP concepts
-Slide 5:
-[Encapsulation and Data Hiding]
-Encapsulation and Data Hiding
-
-Encapsulation: Bundling data and functions into a single unit (class)
-Data hiding: Restricting access to internal data of a class
-Example: Code snippet showcasing encapsulation and data hiding in C
-Slide 6:
-[Abstraction and Modularity]
-Abstraction and Modularity
-
-Abstraction: Simplifying complex systems by representing essential features
-Modularity: Breaking down a system into independent and reusable components (classes)
-Example: Illustration of abstraction and modularity in an embedded system
-Slide 7:
-[Inheritance and Polymorphism]
-Inheritance and Polymorphism
-
-Inheritance: Creating new classes (derived classes) based on existing classes (base classes)
-Polymorphism: Ability of objects to take on different forms or behaviors
-Example: Explanation of inheritance and polymorphism in C with a code snippet
-Slide 8:
-[Summary]
-Summary
-
-OOP organizes code around objects and their interactions
-OOP brings advantages like code reusability, modularity, maintainability, encapsulation
-C is a widely used language in embedded systems and supports OOP techniques
-Encapsulation, abstraction, inheritance, and polymorphism are key OOP concepts
-Slide 9:
-[Questions and Discussion]
-Questions and Discussion
-
-Open the floor for any questions or discussions related to the session
-Note: These slides provide a basic outline and content for the session. Feel free to modify and enhance them as per your specific requirements and preferences.
-======================================================================================
-Session 2: SOLID Principles
+== Session 2: SOLID Principles
 * Overview of SOLID principles
 * Single Responsibility Principle (SRP)
 * Open-Closed Principle (OCP)
@@ -97,27 +25,24 @@ Session 2: SOLID Principles
 * Dependency Inversion Principle (DIP)
 * Examples and discussions related to embedded systems
 
-Slides:
+.Slides:
 * Present each SOLID principle with a concise definition and explanation
 * Provide practical examples of how these principles can be applied in embedded systems development
 * Highlight the importance of each principle in achieving code flexibility, extensibility, and testability
 
-
-Session 3: Basic Design Patterns
+== Session 3: Basic Design Patterns
 * Introduction to design patterns
 * Creational patterns (e.g., Factory, Singleton)
 * Structural patterns (e.g., Adapter, Proxy)
 * Behavioral patterns (e.g., Observer, State)
 * Examples of design patterns in embedded systems
 
-
-Slides:
+.Slides:
 * Introduce the concept of design patterns and their role in software development
 * Discuss a selection of basic design patterns commonly used in embedded systems
 * Explain the problem each pattern solves and illustrate its implementation in C
 
-
-Session 4: Clean Architecture in Embedded Systems
+== Session 4: Clean Architecture in Embedded Systems
 * Understanding clean architecture principles
 * Separation of concerns
 * Dependency management
@@ -125,32 +50,21 @@ Session 4: Clean Architecture in Embedded Systems
 * Applying clean architecture in an embedded systems context
 * Benefits and trade-offs
 
-Slides:
+.Slides:
 * Define clean architecture and its guiding principles
 * Describe the layers and boundaries in clean architecture
 * Discuss the benefits of clean architecture in embedded systems, such as modularity and testability
 * Provide code examples to demonstrate the application of clean architecture principles in C
 
-
-Session 5: Demo Project
+== Session 5: Demo Project
 * Overview of the demo project
 * Designing the project structure using clean architecture principles
 * Implementing key features using object-oriented programming in C
 * Demonstrating SOLID principles and design patterns in action
 * Best practices and code organization techniques
 
-
-Slides:
+.Slides:
 * Introduce the demo project and its purpose
 * Showcase the project's structure based on clean architecture principles
 * Walk through the implementation of key features using OOP techniques in C
 * Demonstrate the application of SOLID principles and design patterns in the codebase
-
-
-For the presentation slides, here are some key points you can cover in each session:
-
-
-
-
-
-Remember to use visually appealing slides, include code snippets, diagrams, and illustrations to support your explanations, and provide ample opportunities for questions and discussions throughout the training sessions. Good luck with your training!
