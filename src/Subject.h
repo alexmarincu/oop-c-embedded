@@ -1,18 +1,17 @@
 #ifndef Subject_h
 #define Subject_h
 #include "Observer.h"
-#include <stdbool.h>
 #include <stdint.h>
 
 typedef struct Subject Subject;
 
-#define Subject_observersMaxCount 1
 struct Subject {
-    Observer * observers[Subject_observersMaxCount];
+    Observer ** observers;
     uint32_t count;
+    uint32_t maxCount;
 };
 
-Subject * Subject_init(Subject * const self);
+Subject * Subject_init(Subject * const self, Observer ** const observers, uint32_t const maxCount);
 void Subject_registerObserver(Subject * self, Observer * observer);
 void Subject_notifyObservers(Subject * self, void * data);
 

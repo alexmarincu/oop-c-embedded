@@ -1,7 +1,12 @@
 #include "AccConfig.h"
+#include <stdbool.h>
+#include <string.h>
+
+#define AccConfig_observersMaxCount 1
 
 struct AccConfig {
     Subject subject;
+    Observer * observers[AccConfig_observersMaxCount];
     bool isSimulatorEnabled;
 };
 
@@ -11,12 +16,9 @@ AccConfig * AccConfig_getInstance(void) {
 }
 
 AccConfig * AccConfig_init(AccConfig * const self) {
-    *self = (AccConfig){
-        .subject = {
-            .observers = { 0 },
-            .count = 0 },
-        .isSimulatorEnabled = false
-    };
+    Subject_init((Subject *)self, self->observers, 1);
+    memset(self->observers, 0, sizeof(self->observers));
+    self->isSimulatorEnabled = false;
     return self;
 }
 

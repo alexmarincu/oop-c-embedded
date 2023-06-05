@@ -1,14 +1,14 @@
 #include "Subject.h"
-#include <string.h>
 
-Subject * Subject_init(Subject * const self) {
-    memset(self->observers, 0, sizeof(self->observers));
+Subject * Subject_init(Subject * const self, Observer ** const observers, uint32_t const maxCount) {
+    self->observers = observers;
     self->count = 0;
+    self->maxCount = maxCount;
     return self;
 }
 
 void Subject_registerObserver(Subject * self, Observer * observer) {
-    if (self->count < Subject_observersMaxCount) {
+    if (self->count < self->maxCount) {
         self->observers[self->count++] = observer;
     }
 }
