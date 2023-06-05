@@ -1,7 +1,6 @@
 #ifndef AccCtrl_h
 #define AccCtrl_h
 #include "AccDriver.h"
-#include "Observer.h"
 
 typedef struct AccCtrl AccCtrl;
 

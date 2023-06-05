@@ -1,5 +1,5 @@
-#ifndef TIMER_H
-#define TIMER_H
+#ifndef Timer_h
+#define Timer_h
 #include "TimeSource.h"
 #include <stdbool.h>
 #include <stdint.h>
@@ -19,4 +19,4 @@ Timer * Timer_init(Timer * const self);
 void Timer_start(Timer * const self, uint32_t const durationIn1ms);
 bool Timer_isExpired(Timer const * const self);
 
-#endif // TIMER_H
+#endif // Timer_h

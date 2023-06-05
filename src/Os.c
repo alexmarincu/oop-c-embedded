@@ -1,15 +1,15 @@
 #include "Os.h"
 #include "AccConfig.h"
+#include "AccConfigurator.h"
 #include "AccCtrl.h"
 #include "AccDriverSwitch.h"
-#include "Calibrator.h"
-#include "DefaultButtonDriver.h"
 #include "Os_KeyHandler.h"
 #include "Os_Scheduler.h"
 #include "Os_Task.h"
 #include "Os_Time.h"
-#include "RealAccDriver.h"
-#include "SimAccDriver.h"
+#include "PlatformAccDriver.h"
+#include "PlatformAccSimDriver.h"
+#include "PlatformButtonDriver.h"
 #include "TimeSource.h"
 #include "Timer.h"
 #include <stdbool.h>
@@ -31,15 +31,15 @@ Os * Os_getInstance(void) {
 Os * Os_init(Os * const self) {
     self->osKeyHandler = Os_KeyHandler_init(Os_KeyHandler_getInstance());
     self->osScheduler = Os_Scheduler_init(Os_Scheduler_getInstance());
-    Calibrator_init(
-        Calibrator_getInstance(),
-        (ButtonDriver *)DefaultButtonDriver_init(DefaultButtonDriver_getInstance()),
+    AccConfigurator_init(
+        AccConfigurator_getInstance(),
+        (ButtonDriver *)PlatformButtonDriver_init(PlatformButtonDriver_getInstance()),
         AccConfig_init(AccConfig_getInstance())
     );
-    SimAccDriver_init(SimAccDriver_getInstance());
+    PlatformAccSimDriver_init(PlatformAccSimDriver_getInstance());
     AccCtrl_init(
         AccCtrl_getInstance(),
-        (AccDriver *)RealAccDriver_init(RealAccDriver_getInstance())
+        (AccDriver *)PlatformAccDriver_init(PlatformAccDriver_getInstance())
     );
     AccDriverSwitch_init(AccDriverSwitch_getInstance());
     TimerClass_init(

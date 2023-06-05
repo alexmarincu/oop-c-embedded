@@ -1,11 +1,11 @@
 #include "Os_Scheduler.h"
+#include "AccConfigurator.h"
 #include "AccCtrl.h"
-#include "Calibrator.h"
 #include "Os_Task.h"
 
 struct Os_Scheduler {
     AccCtrl * accCtrl;
-    Calibrator * calibrator;
+    AccConfigurator * accConfigurator;
     Os_Task tasks[4];
 };
 
@@ -23,7 +23,7 @@ static void Os_Scheduler_runAt20ms(Os_Scheduler * const self) {
 }
 
 static void Os_Scheduler_runAt50ms(Os_Scheduler * const self) {
-    Calibrator_run(self->calibrator);
+    AccConfigurator_run(self->accConfigurator);
 }
 
 static void Os_Scheduler_runAt100ms(Os_Scheduler * const self) {
@@ -32,7 +32,7 @@ static void Os_Scheduler_runAt100ms(Os_Scheduler * const self) {
 
 Os_Scheduler * Os_Scheduler_init(Os_Scheduler * const self) {
     self->accCtrl = AccCtrl_getInstance();
-    self->calibrator = Calibrator_getInstance();
+    self->accConfigurator = AccConfigurator_getInstance();
     Os_Task_init(&self->tasks[0], 10, self, (Os_Task_operationFun)Os_Scheduler_runAt10ms);
     Os_Task_init(&self->tasks[1], 20, self, (Os_Task_operationFun)Os_Scheduler_runAt20ms);
     Os_Task_init(&self->tasks[2], 50, self, (Os_Task_operationFun)Os_Scheduler_runAt50ms);
