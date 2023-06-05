@@ -10,7 +10,7 @@ struct AccDriverSwitch {
     SimAccDriver * simAccDriver;
 };
 
-static void AccDriverSwitch_onConfigChange(AccDriverSwitch * const self, bool * const isSimulatorEnabled);
+static void AccDriverSwitch_onConfigChange(AccDriverSwitch * const self);
 
 AccDriverSwitch * AccDriverSwitch_getInstance(void) {
     static AccDriverSwitch self;
@@ -18,7 +18,7 @@ AccDriverSwitch * AccDriverSwitch_getInstance(void) {
 }
 
 AccDriverSwitch * AccDriverSwitch_init(AccDriverSwitch * const self) {
-    Observer_init((Observer *)self, (Observer_updateFun)AccDriverSwitch_onConfigChange);
+    Observer_init((Observer *)self, (Observer_onUpdateFun)AccDriverSwitch_onConfigChange);
     self->accConfig = AccConfig_getInstance();
     self->accCtrl = AccCtrl_getInstance();
     self->realAccDriver = RealAccDriver_getInstance();
@@ -27,8 +27,8 @@ AccDriverSwitch * AccDriverSwitch_init(AccDriverSwitch * const self) {
     return self;
 }
 
-static void AccDriverSwitch_onConfigChange(AccDriverSwitch * const self, bool * const isSimulatorEnabled) {
-    if (*isSimulatorEnabled) {
+static void AccDriverSwitch_onConfigChange(AccDriverSwitch * const self) {
+    if (AccConfig_isSimulatorEnabled(self->accConfig)) {
         AccCtrl_setAccDriver(self->accCtrl, (AccDriver *)self->simAccDriver);
     } else {
         AccCtrl_setAccDriver(self->accCtrl, (AccDriver *)self->realAccDriver);

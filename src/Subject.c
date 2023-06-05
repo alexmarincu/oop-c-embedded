@@ -13,9 +13,9 @@ void Subject_registerObserver(Subject * self, Observer * observer) {
     }
 }
 
-void Subject_notifyObservers(Subject * self, void * data) {
+void Subject_notifyObservers(Subject * self) {
     for (uint32_t i = 0; i < self->count; ++i) {
         Observer * observer = self->observers[i];
-        observer->update(observer, data);
+        observer->onUpdate(observer);
     }
 }

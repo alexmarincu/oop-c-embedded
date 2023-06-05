@@ -1,5 +1,4 @@
 #include "AccConfig.h"
-#include <stdbool.h>
 #include <string.h>
 
 #define AccConfig_observersMaxCount 1
@@ -24,5 +23,9 @@ AccConfig * AccConfig_init(AccConfig * const self) {
 
 void AccConfig_toggleAccDriver(AccConfig * const self) {
     self->isSimulatorEnabled = !self->isSimulatorEnabled;
-    Subject_notifyObservers(&self->subject, &self->isSimulatorEnabled);
+    Subject_notifyObservers(&self->subject);
+}
+
+bool AccConfig_isSimulatorEnabled(AccConfig const * const self) {
+    return self->isSimulatorEnabled;
 }
