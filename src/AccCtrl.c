@@ -15,7 +15,7 @@ void AccCtrl_init(AccCtrl * const self, AccDriver * const accDriver) {
 }
 
 void AccCtrl_run(AccCtrl * const self) {
-    if (self->accDriver->dataAvailable) {
+    if (AccDriver_isDataAvailable(self->accDriver)) {
         AccDriver_AccDataIn001g accDataIn001g;
         AccDriver_readData(self->accDriver, &accDataIn001g);
         printf("x=%d, y=%d, z=%d\n", accDataIn001g.x, accDataIn001g.y, accDataIn001g.z);

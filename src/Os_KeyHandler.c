@@ -26,19 +26,19 @@ Os_KeyHandler * Os_KeyHandler_init(Os_KeyHandler * const self) {
     return self;
 }
 
-static void Os_KeyHandler_rKeyInt(Os_KeyHandler * const self) {
-    AccDriver_dataAvailableInt((AccDriver *)self->realAccDriver);
+static void Os_KeyHandler_onRKeyPress(Os_KeyHandler * const self) {
+    AccDriver_onDataAvailableInt((AccDriver *)self->realAccDriver);
 }
 
-static void Os_KeyHandler_sKeyInt(Os_KeyHandler * const self) {
-    AccDriver_dataAvailableInt((AccDriver *)self->simAccDriver);
+static void Os_KeyHandler_onSKeyPress(Os_KeyHandler * const self) {
+    AccDriver_onDataAvailableInt((AccDriver *)self->simAccDriver);
 }
 
-static void Os_KeyHandler_tKeyInt(Os_KeyHandler * const self) {
+static void Os_KeyHandler_onTKeyPress(Os_KeyHandler * const self) {
     AccConfig_toggleAccDriver(self->accConfig);
 }
 
-static void Os_KeyHandler_qKeyInt(Os_KeyHandler * const self) {
+static void Os_KeyHandler_onQKeyPress(Os_KeyHandler * const self) {
     Os_quit(self->os);
 }
 
@@ -47,16 +47,16 @@ void Os_KeyHandler_run(Os_KeyHandler * const self) {
         int key = _getch();
         switch (key) {
             case 'r': {
-                Os_KeyHandler_rKeyInt(self);
+                Os_KeyHandler_onRKeyPress(self);
             } break;
             case 's': {
-                Os_KeyHandler_sKeyInt(self);
+                Os_KeyHandler_onSKeyPress(self);
             } break;
             case 't': {
-                Os_KeyHandler_tKeyInt(self);
+                Os_KeyHandler_onTKeyPress(self);
             } break;
             case 'q': {
-                Os_KeyHandler_qKeyInt(self);
+                Os_KeyHandler_onQKeyPress(self);
             } break;
             default: {
             } break;

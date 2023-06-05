@@ -1,13 +1,13 @@
 #include "AccDriver.h"
 
 AccDriver * AccDriver_init(AccDriver * const self, AccDriver_readDataFun const readData) {
-    self->dataAvailable = false;
+    self->isDataAvailable = false;
     self->readData = readData;
     return self;
 }
 
-void AccDriver_dataAvailableInt(AccDriver * const self) {
-    self->dataAvailable = true;
+void AccDriver_onDataAvailableInt(AccDriver * const self) {
+    self->isDataAvailable = true;
 }
 
 AccDriver_AccDataIn001g * AccDriver_readData(
@@ -17,5 +17,5 @@ AccDriver_AccDataIn001g * AccDriver_readData(
 }
 
 bool AccDriver_isDataAvailable(AccDriver const * const self) {
-    return self->dataAvailable;
+    return self->isDataAvailable;
 }

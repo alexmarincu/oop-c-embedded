@@ -10,7 +10,7 @@ typedef AccDriver_AccDataIn001g * (*AccDriver_readDataFun)(
 );
 
 struct AccDriver {
-    bool dataAvailable;
+    bool isDataAvailable;
     AccDriver_readDataFun readData;
 };
 
@@ -21,7 +21,7 @@ struct AccDriver_AccDataIn001g {
 };
 
 AccDriver * AccDriver_init(AccDriver * const self, AccDriver_readDataFun const readData);
-void AccDriver_dataAvailableInt(AccDriver * const self);
+void AccDriver_onDataAvailableInt(AccDriver * const self);
 bool AccDriver_isDataAvailable(AccDriver const * const self);
 AccDriver_AccDataIn001g * AccDriver_readData(
     AccDriver * const self, AccDriver_AccDataIn001g * const accDataIn001g

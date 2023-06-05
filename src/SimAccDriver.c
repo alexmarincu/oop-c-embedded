@@ -22,7 +22,7 @@ SimAccDriver * SimAccDriver_getInstance(void) {
 AccDriver_AccDataIn001g * SimAccDriver_readData(
     SimAccDriver * const self, AccDriver_AccDataIn001g * const accDataIn001g
 ) {
-    self->accDriver.dataAvailable = false;
+    self->accDriver.isDataAvailable = false;
     *accDataIn001g = (AccDriver_AccDataIn001g){
         .x = 100,
         .y = 200,
