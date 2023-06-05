@@ -1,5 +1,18 @@
 #include "Timer.h"
-#include "TimeSource.h"
+
+struct TimerClass {
+    TimeSource * timeSource;
+};
+
+TimerClass * TimerClass_getInstance(void) {
+    static TimerClass self;
+    return &self;
+}
+
+TimerClass * TimerClass_init(TimerClass * const self, TimeSource * const timeSource) {
+    self->timeSource = timeSource;
+    return self;
+}
 
 Timer * Timer_init(Timer * const self) {
     self->klass = TimerClass_getInstance();

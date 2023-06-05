@@ -9,7 +9,7 @@
 #include "RealAccDriver.h"
 #include "SimAccDriver.h"
 #include "TimeSource.h"
-#include "TimerClass.h"
+#include "Timer.h"
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
