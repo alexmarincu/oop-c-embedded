@@ -1,14 +1,76 @@
-= Introduction to Object-Oriented Programming in C for Embedded Systems
+= Design
 :sectnums:
 :imagesdir: media
 
-[plantuml, target=diag-object-class-uml-representation]
-.Object class UML representation
+[plantuml, target=diag-overview]
+.Design overview
 ----
-class Object {
-    + attribute : uint32_t
-    + init() : void
-    + setAttribute(attribute : uint32_t) : void
-    + getAttribute() : uint32_t
+package lib {
+    package timer {
+        object Timer
+        object TimeSource
+        Timer -r-> TimeSource
+    }
+    package observer {
+        object Observer
+        object Subject
+        Subject -r-> "0..*" Observer
+    }
+}
+package motion_detector {
+    object AccDriver
+    object AccCtrl
+    AccCtrl -r-> AccDriver
+}
+package acc_configurator {
+    object ButtonDriver
+    object AccConfigurator
+    AccConfigurator -r-> ButtonDriver
+}
+package acc_driver {
+    object AccConfig
+    object AccDriverSwitch
+    object PlatformAccDriver
+    object PlatformAccSimDriver
+    PlatformAccDriver -u-|> AccDriver
+    PlatformAccSimDriver -u-|> AccDriver
+    AccConfig -u-|> Subject
+    AccDriverSwitch -u-|> Observer
+    AccDriverSwitch -l-> AccConfig
+}
+package button_driver {
+    object PlatformButtonDriver
+    PlatformButtonDriver -u-|> ButtonDriver
+}
+package os {
+    object Os_Interrupts
+    object Os_KeyHandler
+    object Os_Scheduler
+    object Os_Task
+    object Os_Time
+    object Os
+    Os -u-> Os_KeyHandler
+    Os -u-> Os_Scheduler
+    Os .u.> AccConfig
+    Os .u.> AccCtrl
+    Os .u.> AccDriverSwitch
+    Os .u.> AccConfigurator
+    Os .u.> PlatformButtonDriver
+    Os .u.> Os_Task
+    Os .u.> Os_Time
+    Os .u.> PlatformAccDriver
+    Os .u.> PlatformAccSimDriver
+    Os .u.> TimeSource
+    Os .u.> Timer
+    Os_Scheduler -u-> AccCtrl
+    Os_Scheduler -u-> AccConfigurator
+    Os_Scheduler -u-> Os_Task
+    Os_KeyHandler -u-> Os
+    Os_KeyHandler .u.> Os_Interrupts
+    Os_Interrupts .u.> PlatformButtonDriver
+    Os_Interrupts .u.> PlatformAccDriver
+    Os_Interrupts .u.> PlatformAccSimDriver
+    Os_Task --> Os_Time
+    Os_Time -u-|> TimeSource
 }
 ----
