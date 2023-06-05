@@ -4,6 +4,7 @@
 #include "AccDriverSwitch.h"
 #include "Os_KeyHandler.h"
 #include "Os_Scheduler.h"
+#include "Os_Task.h"
 #include "Os_Time.h"
 #include "RealAccDriver.h"
 #include "SimAccDriver.h"
@@ -33,6 +34,7 @@ Os * Os_init(Os * const self) {
     AccCtrl_init(AccCtrl_getInstance(), (AccDriver *)RealAccDriver_init(RealAccDriver_getInstance()));
     AccDriverSwitch_init(AccDriverSwitch_getInstance());
     TimerClass_init(TimerClass_getInstance(), (TimeSource *)Os_Time_getInstance());
+    Os_TaskClass_init(Os_TaskClass_getInstance());
     self->shouldQuit = false;
     return self;
 }
