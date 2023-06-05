@@ -2,6 +2,8 @@
 #include "AccConfig.h"
 #include "AccCtrl.h"
 #include "AccDriverSwitch.h"
+#include "Calibrator.h"
+#include "DefaultButtonDriver.h"
 #include "Os_KeyHandler.h"
 #include "Os_Scheduler.h"
 #include "Os_Task.h"
@@ -29,11 +31,21 @@ Os * Os_getInstance(void) {
 Os * Os_init(Os * const self) {
     self->osKeyHandler = Os_KeyHandler_init(Os_KeyHandler_getInstance());
     self->osScheduler = Os_Scheduler_init(Os_Scheduler_getInstance());
-    AccConfig_init(AccConfig_getInstance());
+    Calibrator_init(
+        Calibrator_getInstance(),
+        (ButtonDriver *)DefaultButtonDriver_init(DefaultButtonDriver_getInstance()),
+        AccConfig_init(AccConfig_getInstance())
+    );
     SimAccDriver_init(SimAccDriver_getInstance());
-    AccCtrl_init(AccCtrl_getInstance(), (AccDriver *)RealAccDriver_init(RealAccDriver_getInstance()));
+    AccCtrl_init(
+        AccCtrl_getInstance(),
+        (AccDriver *)RealAccDriver_init(RealAccDriver_getInstance())
+    );
     AccDriverSwitch_init(AccDriverSwitch_getInstance());
-    TimerClass_init(TimerClass_getInstance(), (TimeSource *)Os_Time_getInstance());
+    TimerClass_init(
+        TimerClass_getInstance(),
+        (TimeSource *)Os_Time_getInstance()
+    );
     Os_TaskClass_init(Os_TaskClass_getInstance());
     self->shouldQuit = false;
     return self;

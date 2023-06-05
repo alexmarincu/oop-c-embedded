@@ -20,7 +20,7 @@ Os_Task * Os_Task_init(
     uint32_t const repetitionRateIn1ms, void * const client, Os_Task_operationFun const operation
 ) {
     self->klass = Os_TaskClass_getInstance();
-    self->startTimeAtLastRunIn1ms = UINT32_MAX;
+    self->startTimeAtLastRunIn1ms = 0;
     self->maxRunDurationIn1ms = 0;
     self->repetitionRateIn1ms = repetitionRateIn1ms;
     self->client = client;

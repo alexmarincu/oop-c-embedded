@@ -1,5 +1,5 @@
 #include "Os_Interrupts.h"
-#include "AccConfig.h"
+#include "DefaultButtonDriver.h"
 #include "RealAccDriver.h"
 #include "SimAccDriver.h"
 
@@ -12,5 +12,5 @@ void Os_Interrupts_simAccDataAvailable(void) {
 }
 
 void Os_Interrupts_buttonPress(void) {
-    AccConfig_toggleAccDriver(AccConfig_getInstance());
+    ButtonDriver_onButtonPressInt((ButtonDriver *)DefaultButtonDriver_getInstance());
 }
