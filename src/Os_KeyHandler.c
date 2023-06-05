@@ -1,16 +1,10 @@
 #include "Os_KeyHandler.h"
-#include "AccConfig.h"
 #include "Os.h"
-#include "RealAccDriver.h"
-#include "SimAccDriver.h"
+#include "Os_Interrupts.h"
 #include "conioWrapper.h"
-#include <stdio.h>
 
 struct Os_KeyHandler {
     Os * os;
-    AccConfig * accConfig;
-    RealAccDriver * realAccDriver;
-    SimAccDriver * simAccDriver;
 };
 
 Os_KeyHandler * Os_KeyHandler_getInstance(void) {
@@ -20,22 +14,22 @@ Os_KeyHandler * Os_KeyHandler_getInstance(void) {
 
 Os_KeyHandler * Os_KeyHandler_init(Os_KeyHandler * const self) {
     self->os = Os_getInstance();
-    self->accConfig = AccConfig_getInstance();
-    self->realAccDriver = RealAccDriver_getInstance();
-    self->simAccDriver = SimAccDriver_getInstance();
     return self;
 }
 
 static void Os_KeyHandler_onRKeyPress(Os_KeyHandler * const self) {
-    AccDriver_onDataAvailableInt((AccDriver *)self->realAccDriver);
+    (void)self;
+    Os_Interrupts_realAccDataAvailable();
 }
 
 static void Os_KeyHandler_onSKeyPress(Os_KeyHandler * const self) {
-    AccDriver_onDataAvailableInt((AccDriver *)self->simAccDriver);
+    (void)self;
+    Os_Interrupts_simAccDataAvailable();
 }
 
 static void Os_KeyHandler_onTKeyPress(Os_KeyHandler * const self) {
-    AccConfig_toggleAccDriver(self->accConfig);
+    (void)self;
+    Os_Interrupts_buttonPress();
 }
 
 static void Os_KeyHandler_onQKeyPress(Os_KeyHandler * const self) {
