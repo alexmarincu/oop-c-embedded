@@ -32,10 +32,10 @@ When implementing OOP in C for embedded systems, it is important to follow best 
 .Object class UML representation
 ----
 class Object {
-    + attribute: uint32_t
-    + init(): void
-    + setAttribute(attribute: uint32_t): void
-    + getAttribute(): uint32_t
+    +attribute: uint32_t
+    +init(): void
+    +setAttribute(attribute: uint32_t): void
+    +getAttribute(): uint32_t
 }
 ----
 
@@ -144,16 +144,16 @@ int main() {
 .Timer class UML representation (Timer depends on TimeSource)
 ----
 class Timer {
-    + startTimeIn1ms: uint32_t
-    + durationIn1ms: uint32_t
-    + isRunning: bool
-    + init(): Timer
-    + start(durationIn1ms: uint32_t): void
-    + stop(): void
-    + isExpired(): bool
+    +startTimeIn1ms: uint32_t
+    +durationIn1ms: uint32_t
+    +isRunning: bool
+    +init(): Timer
+    +start(durationIn1ms: uint32_t): void
+    +stop(): void
+    +isExpired(): bool
 }
 interface TimeSource {
-    + getCurrentTimeIn1ms(): uint32_t
+    +getCurrentTimeIn1ms(): uint32_t
 }
 Timer .r.> TimeSource
 ----
@@ -229,19 +229,19 @@ int main() {
 .Shape and Rectangle class UML representation (Rectangle extends Shape)
 ----
 abstract class Shape {
-    + x: uint32_t
-    + y: uint32_t
-    + init(x: uint32_t, y: uint32_t): Shape
-    + {virtual} area(): float
+    +x: uint32_t
+    +y: uint32_t
+    +init(x: uint32_t, y: uint32_t): Shape
+    +{virtual} area(): float
 }
 class Rectangle {
-    + width: uint32_t
-    + height: uint32_t
-    + init(x: uint32_t, y: uint32_t, width: uint32_t, height: uint32_t): Rectangle
-    + getWidth(): uint32_t
-    + setWidth(width: uint32_t): void
-    + getHeight(): uint32_t
-    + setHeight(height: uint32_t): void
+    +width: uint32_t
+    +height: uint32_t
+    +init(x: uint32_t, y: uint32_t, width: uint32_t, height: uint32_t): Rectangle
+    +getWidth(): uint32_t
+    +setWidth(width: uint32_t): void
+    +getHeight(): uint32_t
+    +setHeight(height: uint32_t): void
 }
 Shape <|-d- Rectangle
 ----
