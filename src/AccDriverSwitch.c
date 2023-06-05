@@ -1,4 +1,7 @@
 #include "AccDriverSwitch.h"
+#include "AccConfig.h"
+#include "AccCtrl.h"
+#include "Observer.h"
 #include "PlatformAccDriver.h"
 #include "PlatformAccSimDriver.h"
 #include <stdio.h>

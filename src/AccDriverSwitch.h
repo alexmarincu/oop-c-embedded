@@ -1,8 +1,5 @@
 #ifndef AccDriverSwitch_h
 #define AccDriverSwitch_h
-#include "AccConfig.h"
-#include "AccCtrl.h"
-#include "Observer.h"
 
 typedef struct AccDriverSwitch AccDriverSwitch;
 

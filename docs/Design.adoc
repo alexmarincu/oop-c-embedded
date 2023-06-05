@@ -5,6 +5,7 @@
 [plantuml, target=diag-overview]
 .Design overview
 ----
+skinparam linetype ortho
 package lib {
     package timer {
         object Timer
@@ -25,18 +26,26 @@ package motion_detector {
 package acc_configurator {
     object ButtonDriver
     object AccConfigurator
+    object AccConfigDataSource
     AccConfigurator -r-> ButtonDriver
+    AccConfigurator -r-> AccConfigDataSource
+}
+package acc_persistent_data {
+    object AccConfig
+    AccConfig -u-|> Subject
+    AccConfig -u-|> AccConfigDataSource
 }
 package acc_driver {
-    object AccConfig
     object AccDriverSwitch
     object PlatformAccDriver
     object PlatformAccSimDriver
     PlatformAccDriver -u-|> AccDriver
     PlatformAccSimDriver -u-|> AccDriver
-    AccConfig -u-|> Subject
     AccDriverSwitch -u-|> Observer
-    AccDriverSwitch -l-> AccConfig
+    AccDriverSwitch -r-> AccConfig
+    AccDriverSwitch -u-> AccCtrl
+    AccDriverSwitch -r-> PlatformAccDriver
+    AccDriverSwitch -r-> PlatformAccSimDriver
 }
 package button_driver {
     object PlatformButtonDriver
@@ -49,28 +58,28 @@ package os {
     object Os_Task
     object Os_Time
     object Os
-    Os -u-> Os_KeyHandler
-    Os -u-> Os_Scheduler
+    Os -r-> Os_KeyHandler
+    Os -r-> Os_Scheduler
     Os .u.> AccConfig
     Os .u.> AccCtrl
     Os .u.> AccDriverSwitch
     Os .u.> AccConfigurator
     Os .u.> PlatformButtonDriver
-    Os .u.> Os_Task
-    Os .u.> Os_Time
+    Os .r.> Os_Task
+    Os .r.> Os_Time
     Os .u.> PlatformAccDriver
     Os .u.> PlatformAccSimDriver
     Os .u.> TimeSource
     Os .u.> Timer
     Os_Scheduler -u-> AccCtrl
     Os_Scheduler -u-> AccConfigurator
-    Os_Scheduler -u-> Os_Task
-    Os_KeyHandler -u-> Os
-    Os_KeyHandler .u.> Os_Interrupts
+    Os_Scheduler -r-> Os_Task
+    Os_KeyHandler -r-> Os
+    Os_KeyHandler .r.> Os_Interrupts
     Os_Interrupts .u.> PlatformButtonDriver
     Os_Interrupts .u.> PlatformAccDriver
     Os_Interrupts .u.> PlatformAccSimDriver
-    Os_Task --> Os_Time
+    Os_Task -r-> Os_Time
     Os_Time -u-|> TimeSource
 }
 ----
