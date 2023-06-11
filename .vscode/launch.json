@@ -8,7 +8,7 @@
             "name": "Test Debug",
             // "miDebuggerPath": "C:\\Users\\uidn8285\\scoopless\\gcc\\11.2.0\\bin\\gdb.exe",
             "type": "cppdbg",
-            "program": "${workspaceRoot}/build/test/out/test_${input:name}.exe",
+            "program": "${workspaceRoot}/build/test/out/test_${input:name}.out",
             "request": "launch",
             "cwd": "${workspaceRoot}",
             "args": [],
