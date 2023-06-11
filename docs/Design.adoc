@@ -8,78 +8,104 @@
 skinparam linetype ortho
 package lib {
     package timer {
-        object Timer
-        object TimeSource
+        class Timer
+        interface TimeSource
         Timer -r-> TimeSource
     }
     package observer {
-        object Observer
-        object Subject
-        Subject -r-> "0..*" Observer
+        interface Observer
+        abstract class Subject
+        Subject -r-> Observer
     }
 }
+package acceleration {
+    class Acceleration3d
+}
+package acc_config {
+    class AccConfig
+    interface AccConfigDao
+    AccConfigDao .r.> AccConfig
+}
 package motion_detector {
-    object AccDriver
-    object AccCtrl
-    AccCtrl -r-> AccDriver
+    class AccelerationAccumulator
+    class AccelerationMagnitudeTracker
+    class MotionDetector
+    MotionDetector .u.> Acceleration3d
+    MotionDetector *-r-> AccelerationAccumulator
+    MotionDetector *-r-> AccelerationMagnitudeTracker
+    MotionDetector *-u-> Timer
+    AccelerationAccumulator *-u-> Acceleration3d
 }
 package acc_configurator {
-    object ButtonDriver
-    object AccConfigurator
-    object AccConfigDataSource
-    AccConfigurator -r-> ButtonDriver
-    AccConfigurator -r-> AccConfigDataSource
+    class AccConfigurator
+    AccConfigurator -u-> AccConfigDao
+    AccConfigurator .u.> AccConfig
 }
-package acc_persistent_data {
-    object AccConfig
-    AccConfig -u-|> Subject
-    AccConfig -u-|> AccConfigDataSource
+package acc_ctrl {
+    class AccCtrl
+    AccCtrl .u.> Acceleration3d
+    AccCtrl -u-> MotionDetector
+}
+package button_ctrl {
+    class ButtonCtrl
+    ButtonCtrl -u-> AccConfigurator
+}
+package acc_config_storage {
+    class AccConfigStorage
+    AccConfigStorage -u-|> Subject
+    AccConfigStorage -u-|> Observer
+    AccConfigStorage .u.|> AccConfigDao
+    AccConfigStorage -u-> AccConfig
 }
 package acc_driver {
-    object AccDriverSwitch
-    object PlatformAccDriver
-    object PlatformAccSimDriver
-    PlatformAccDriver -u-|> AccDriver
-    PlatformAccSimDriver -u-|> AccDriver
-    AccDriverSwitch -u-|> Observer
-    AccDriverSwitch -r-> AccConfig
-    AccDriverSwitch -u-> AccCtrl
-    AccDriverSwitch -r-> PlatformAccDriver
-    AccDriverSwitch -r-> PlatformAccSimDriver
+    abstract class AccDriver
+    class ActualAccDriver
+    class ActualAccSimDriver
+    class AccDriverProvider
+    AccDriver -u-> AccCtrl
+    ActualAccDriver -r-|> AccDriver
+    ActualAccDriver -u-> AccCtrl
+    ActualAccDriver .u.> Acceleration3d
+    ActualAccSimDriver -r-|> AccDriver
+    ActualAccSimDriver -u-> AccCtrl
+    ActualAccSimDriver .u.> Acceleration3d
+    AccDriverProvider .u.|> Observer
+    AccDriverProvider .u.> Subject
+    AccDriverProvider -u-> AccConfigStorage
+    AccDriverProvider -r-> ActualAccDriver
+    AccDriverProvider -r-> ActualAccSimDriver
+    AccDriverProvider -r-> AccDriver
 }
 package button_driver {
-    object PlatformButtonDriver
-    PlatformButtonDriver -u-|> ButtonDriver
+    class ButtonDriver
+    ButtonDriver -u-> ButtonCtrl
 }
 package os {
-    object Os_Interrupts
-    object Os_KeyHandler
-    object Os_Scheduler
-    object Os_Task
-    object Os_Time
-    object Os
-    Os -r-> Os_KeyHandler
-    Os -r-> Os_Scheduler
-    Os .u.> AccConfig
-    Os .u.> AccCtrl
-    Os .u.> AccDriverSwitch
-    Os .u.> AccConfigurator
-    Os .u.> PlatformButtonDriver
-    Os .r.> Os_Task
-    Os .r.> Os_Time
-    Os .u.> PlatformAccDriver
-    Os .u.> PlatformAccSimDriver
-    Os .u.> TimeSource
-    Os .u.> Timer
-    Os_Scheduler -u-> AccCtrl
-    Os_Scheduler -u-> AccConfigurator
-    Os_Scheduler -r-> Os_Task
-    Os_KeyHandler -r-> Os
-    Os_KeyHandler .r.> Os_Interrupts
-    Os_Interrupts .u.> PlatformButtonDriver
-    Os_Interrupts .u.> PlatformAccDriver
-    Os_Interrupts .u.> PlatformAccSimDriver
-    Os_Task -r-> Os_Time
-    Os_Time -u-|> TimeSource
+    class os_Interrupts
+    class os_KeyHandler
+    class os_Time
+    class os_Task
+    class os_Scheduler
+    class Os
+    Os -r-> os_KeyHandler
+    Os -r-> os_Scheduler
+    os_KeyHandler -r-> Os
+    os_KeyHandler .r.> os_Interrupts
+    os_Interrupts .r.> ButtonDriver
+    os_Interrupts .u.> AccDriver
+    os_Interrupts .u.> ActualAccDriver
+    os_Interrupts .u.> ActualAccSimDriver
+    os_Scheduler -u-> ButtonDriver
+    os_Scheduler -u-> AccDriverProvider
+    os_Scheduler -u-> MotionDetector
+    os_Scheduler -r-> os_Task
+    os_Scheduler .u.> AccConfigStorage
+    os_Scheduler .u.> AccConfigurator
+    os_Scheduler .u.> AccDriver
+    os_Scheduler .u.> ButtonCtrl
+    os_Scheduler .r.> os_Time
+    os_Scheduler .u.> Timer
+    os_Task -r-> os_Time
+    os_Time .u.|> TimeSource
 }
 ----
