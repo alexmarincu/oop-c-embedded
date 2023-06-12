@@ -49,6 +49,16 @@
             "command": "ceedling gcov:all utils:gcov",
             "group": "test",
             "problemMatcher": []
+        },
+        {
+            "label": "adoc2pdf",
+            "type": "shell",
+            "command": "rm -rf media; asciidoctor-pdf -r asciidoctor-diagram ${fileBasename}",
+            "group": "build",
+            "problemMatcher": [],
+            "options": {
+                "cwd": "${fileDirname}"
+            }
         }
     ]
 }
