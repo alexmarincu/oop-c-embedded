@@ -76,9 +76,9 @@ uint32_t Object_getAttribute(Object * const self) {
 
 int main() {
     Object obj;
-    Object_init(&obj);                      // obj.init();
-    Object_setAttribute(&obj, 5);           // obj.setAttribute(5);
-    uint32_t a = Object_getAttribute(&obj); // obj.getAttribute();
+    Object_init(&obj);                      // obj.init()
+    Object_setAttribute(&obj, 5);           // obj.setAttribute(5)
+    uint32_t a = Object_getAttribute(&obj); // obj.getAttribute()
     return 0;
 }
 ----
@@ -127,10 +127,10 @@ uint32_t Object_getAttribute(Object * const self) {
 #include "Object.h"
 
 int main() {
-    Object * obj = Object_getInstance();   // Object.getInstance();
-    Object_init(obj);                      // obj.init();
-    Object_setAttribute(obj, 5);           // obj.setAttribute(5);
-    uint32_t a = Object_getAttribute(obj); // obj.getAttribute();
+    Object * obj = Object_getInstance();   // Object.getInstance()
+    Object_init(obj);                      // obj.init()
+    Object_setAttribute(obj, 5);           // obj.setAttribute(5)
+    uint32_t a = Object_getAttribute(obj); // obj.getAttribute()
     return 0;
 }
 ----
@@ -210,9 +210,9 @@ bool Timer_isExpired(Timer const * const self) {
 #include "Timer.h"
 
 int main() {
-    Timer * timer = Timer_init(&(Timer){0}); // new Timer();
+    Timer * timer = Timer_init(&(Timer){0}); // new Timer()
     for (uint8_t index = 0; index < 5; index++) {
-        Timer_start(timer, 1000);                     // timer.start(1000);
+        Timer_start(timer, 1000);                     // timer.start(1000)
         while (Timer_isExpired(timer) == false) { ; } // timer.isExpired()
         printf("%d\n", index + 1);
     }
@@ -356,10 +356,10 @@ float Rectangle_area(Rectangle const * const self) {
 include "Rectangle.h"
 
 int main() {
-    Rectangle * rectangle = Rectangle_init(&(Rectangle){0}, 0, 0, 5, 10); // new Rectangle(0, 0, 5, 10);
+    Rectangle * rectangle = Rectangle_init(&(Rectangle){0}, 0, 0, 5, 10); // new Rectangle(0, 0, 5, 10)
     Shape * shape = (Shape *)rectangle;
-    float rectangleArea = Rectangle_area(rectangle); // rectangle.area();
-    float shapeArea = Shape_area(shape);             // shape.area();
+    float rectangleArea = Rectangle_area(rectangle); // rectangle.area()
+    float shapeArea = Shape_area(shape);             // shape.area()
     return 0;
 }
 ----
