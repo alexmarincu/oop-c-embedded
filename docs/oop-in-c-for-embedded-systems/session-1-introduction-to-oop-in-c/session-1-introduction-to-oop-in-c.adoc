@@ -4,7 +4,18 @@
 
 == Object-Oriented Programming (OOP)
 Object-oriented programming (OOP) is a programming paradigm that revolves around the concept of objects, which encapsulate data and behavior. In OOP, programs are designed by creating classes, which serve as templates for creating objects. Each object has its own set of properties and methods, which can be used to manipulate or interact with the object.
+
 One of the main advantages of OOP is its ability to organize complex code into smaller, more manageable pieces. This makes it easier to write, test, and maintain code, especially in large-scale projects. Additionally, OOP promotes code reusability, as classes can be reused across multiple projects.
+
+=== What is a class?
+In OOP, a class is a blueprint or template that defines the structure and behavior of objects. It encapsulates data (known as member variables or attributes) and functions (known as member methods or behaviors) that operate on that data.
+
+A class serves as a blueprint for creating multiple objects with similar properties and behaviors. It defines the attributes that each object will have and the operations that can be performed on those objects.
+
+=== What is an object?
+In OOP, an object is an instance of a class. It is a concrete, tangible entity that is created based on the class definition.
+
+When we create an object, memory is allocated to hold the object's data, and the object can then be accessed and manipulated. Objects have their own unique state, determined by the values assigned to their attributes.
 
 == Advantages of OOP in Embedded Systems
 * Code reusability: Reuse existing classes and libraries across projects
@@ -12,22 +23,24 @@ One of the main advantages of OOP is its ability to organize complex code into s
 * Maintainability: Changes in one object have minimal impact on other objects
 * Encapsulation: Protects data and implementation details from external access
 
-== OOP in c?
+== OOP in C?
 OOP is a programming paradigm.
 
 The concept of OOP emerged before the development of specific programming languages designed for it. OOP principles and ideas were initially conceived as a way to organize and structure software systems, and they later influenced the creation of programming languages that supported those concepts.
 
 While C is not inherently an object-oriented language, it is possible to implement OOP principles through the use of structs, functions and function pointers. Structs can be used to define objects, while functions and function pointers can be used to define methods that operate on those objects.
-One popular approach to implementing OOP in C is the use of a struct-based inheritance model, where child structs inherit properties and methods from parent structs. This allows for code reuse and promotes modularity.
 
 When implementing OOP in C for embedded systems, it is important to follow best practices to ensure code quality and maintainability. This includes proper memory management, avoiding global variables, and adhering to coding standards.
 
-== Encapsulation and Data Hiding
-* Encapsulation: Bundling data and functions into a single unit (class)
-* Data hiding: Restricting access to internal data of a class
+== The main pillars of OOP
+=== Encapsulation and Data Hiding
+.Encapsulation:
+Encapsulation is the practice of bundling data and related behaviors (methods or functions) into a single unit called a class. It allows us to encapsulate the internal workings and implementation details of an object, providing a clear interface for interacting with it. Encapsulation promotes code organization, reusability, and data protection by controlling access to the internal state of an object through methods or functions.
 
+.Data hiding:
+Data hiding, also known as information hiding, is a principle closely tied to encapsulation. It involves restricting direct access to the internal data of a class or object. This helps maintain data integrity, enforces encapsulation, and allows us to apply validation and abstraction to the data.
 
-=== Example in C:
+==== Example in C:
 [plantuml, target=diag-object-class-uml-representation]
 .Object class UML representation
 ----
@@ -39,7 +52,7 @@ class Object {
 }
 ----
 
-==== Encapsulation
+===== Encapsulation
 .Object.h
 [source,c]
 ----
@@ -83,7 +96,7 @@ int main() {
 }
 ----
 
-==== Data hiding
+===== Data hiding
 .Object.h
 [source,c]
 ----
@@ -135,11 +148,14 @@ int main() {
 }
 ----
 
-== Abstraction and Modularity
-* Abstraction: Simplifying complex systems by representing essential features
-* Modularity: Breaking down a system into independent and reusable components (classes)
+=== Abstraction and Modularity
+.Abstraction:
+Abstraction is the process of simplifying complex systems or concepts by focusing on essential features and ignoring unnecessary details. In object-oriented programming, abstraction allows us to create abstract classes or interfaces that define common properties and behaviors without providing specific implementation details. It helps in modeling real-world entities and provides a higher level of understanding and communication between developers.
 
-=== Example in C:
+.Modularity:
+Modularity refers to the organization of code into separate, independent modules or units. It involves breaking down a program into smaller, self-contained components that can be developed, tested, and maintained separately. Modularity improves code readability, reusability, and maintainability by encapsulating related functionality within a module, making it easier to understand and work with.
+
+==== Example in C:
 [plantuml, target=diag-timer-class-uml-representation]
 .Timer class UML representation (Timer depends on TimeSource)
 ----
@@ -210,8 +226,8 @@ bool Timer_isExpired(Timer const * const self) {
 #include "Timer.h"
 
 int main() {
-    Timer * timer = Timer_init(&(Timer){0}); // new Timer()
-    for (uint8_t index = 0; index < 5; index++) {
+    Timer * timer = Timer_init(&(Timer){0});          // new Timer()
+    for (uint8_t index = 0; index < 5; index++) {     //
         Timer_start(timer, 1000);                     // timer.start(1000)
         while (Timer_isExpired(timer) == false) { ; } // timer.isExpired()
         printf("%d\n", index + 1);
@@ -220,11 +236,14 @@ int main() {
 }
 ----
 
-== Inheritance and Polymorphism
-* Inheritance: Creating new classes (derived classes) based on existing classes (base classes)
-* Polymorphism: Ability of objects to take on different forms or behaviors
+=== Inheritance and Polymorphism
+.Inheritance:
+Inheritance is a mechanism in object-oriented programming that allows a class to inherit properties and behaviors from another class. The class being inherited from is called the base class, parent class, or superclass, while the class inheriting the properties is called the derived class, child class, or subclass. Inheritance facilitates code reuse and promotes the "is-a" relationship between classes, where a derived class can inherit and extend the characteristics of its parent class.
 
-=== Example in C:
+.Polymorphism:
+Polymorphism is the ability of an object to take on many forms or have multiple behaviors. It allows different objects to respond differently to the same method or function call based on their specific implementation. Polymorphism enables code flexibility and extensibility by allowing objects of different classes to be treated interchangeably through a common interface or base class. It helps in writing generic code that can work with different types of objects, enhancing code modularity and maintainability.
+
+==== Example in C:
 [plantuml, target=diag-shape-and-rectangle-class-uml-representation]
 .Shape and Rectangle class UML representation (Rectangle extends Shape)
 ----
@@ -238,10 +257,6 @@ class Rectangle {
     width: uint32_t
     height: uint32_t
     init(x: uint32_t, y: uint32_t, width: uint32_t, height: uint32_t): Rectangle
-    getWidth(): uint32_t
-    setWidth(width: uint32_t): void
-    getHeight(): uint32_t
-    setHeight(height: uint32_t): void
 }
 Rectangle -u-|> Shape
 ----
@@ -257,14 +272,20 @@ struct Shape {
     Shape_areaFun area;
 };
 
-Shape * Shape_init(Shape * const self, uint32_t const x, uint32_t const y, Shape_areaFun const area);
+Shape * Shape_init(
+    Shape * const self,
+    uint32_t const x, uint32_t const y, Shape_areaFun const area
+);
 float Shape_area(Shape const * const self);
 ----
 
 .Shape.c
 [source,c]
 ----
-Shape * Shape_init(Shape * const self, uint32_t const x, uint32_t const y, Shape_areaFun const area) {
+Shape * Shape_init(
+    Shape * const self,
+    uint32_t const x, uint32_t const y, Shape_areaFun const area
+) {
     self->x = x;
     self->y = y;
     self->area = area;
@@ -289,12 +310,9 @@ typedef struct {
 
 Rectangle * Rectangle_init(
     Rectangle * const self,
-    uint32_t const x, uint32_t const y, uint32_t const width, uint32_t const height
+    uint32_t const x, uint32_t const y,
+    uint32_t const width, uint32_t const height
 );
-uint32_t Rectangle_getWidth(Rectangle const * const self);
-void Rectangle_setWidth(Rectangle * const self, uint32_t const width);
-uint32_t Rectangle_getHeight(Rectangle const * const self);
-void Rectangle_setHeight(Rectangle * const self, uint32_t const height);
 float Rectangle_area(Rectangle const * const self);
 ----
 
@@ -321,28 +339,13 @@ object Rectangle {
 
 Rectangle * Rectangle_init(
     Rectangle * const self,
-    uint32_t const x, uint32_t const y, uint32_t const width, uint32_t const height
+    uint32_t const x, uint32_t const y,
+    uint32_t const width, uint32_t const height
 ) {
     Shape_init((Shape *)self, x, y, (Shape_areaFun)Rectangle_area);
     self->width = width;
     self->height = height;
     return self;
-}
-
-uint32_t Rectangle_getWidth(Rectangle const * const self) {
-    return self->width;
-}
-
-void Rectangle_setWidth(Rectangle * const self, uint32_t const width) {
-    self->width = width;
-}
-
-uint32_t Rectangle_getHeight(Rectangle const * const self) {
-    return self->height;
-}
-
-void Rectangle_setHeight(Rectangle * const self, uint32_t const height) {
-    self->height = height;
 }
 
 float Rectangle_area(Rectangle const * const self) {
@@ -356,8 +359,10 @@ float Rectangle_area(Rectangle const * const self) {
 include "Rectangle.h"
 
 int main() {
-    Rectangle * rectangle = Rectangle_init(&(Rectangle){0}, 0, 0, 5, 10); // new Rectangle(0, 0, 5, 10)
-    Shape * shape = (Shape *)rectangle;
+    Rectangle * rectangle = Rectangle_init(          // new Rectangle(0, 0, 5, 10)
+        &(Rectangle){ 0 }, 0, 0, 5, 10               //
+    );                                               //
+    Shape * shape = (Shape *)rectangle;              //
     float rectangleArea = Rectangle_area(rectangle); // rectangle.area()
     float shapeArea = Shape_area(shape);             // shape.area()
     return 0;
@@ -365,9 +370,10 @@ int main() {
 ----
 
 == Summary
-* OOP organizes code around objects and their interactions
-* OOP brings advantages like code reusability, modularity, maintainability, encapsulation
-* C supports OOP techniques
-* Encapsulation, abstraction, inheritance, and polymorphism are key OOP concepts
+Object-oriented programming (OOP) is a coding paradigm that focuses on organizing code around objects and their interactions. This approach offers several advantages, including code reusability, modularity, and maintainability. While traditionally associated with languages like C++, Java, and Python, OOP techniques can also be applied in C with the use of structures and functions.
+
+The core concepts of OOP include encapsulation, which involves bundling data and functions into classes to achieve data hiding and code organization. Abstraction simplifies complex systems by providing a high-level understanding of entities. Inheritance allows classes to inherit properties and behaviors from parent classes, promoting code reuse and the "is-a" relationship. Polymorphism enables objects of different types to be treated interchangeably, enhancing code flexibility.
+
+By leveraging these key OOP concepts, developers can create well-structured, modular, and maintainable code, facilitating the development and evolution of complex software systems.
 
 == Questions?
