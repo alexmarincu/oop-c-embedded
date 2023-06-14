@@ -1,4 +1,4 @@
-#include "Timer.h"
+#include "lib/timer/Timer.h"
 #include "unity.h"
 
 TEST_FILE("Timer.c")

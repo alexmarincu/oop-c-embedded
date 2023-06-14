@@ -1,5 +1,5 @@
 #include "AccConfigStorage.h"
-#include "Subject.h"
+#include "../lib/observer/Subject.h"
 #include <string.h>
 
 #define AccConfigStorage_observersMaxCount 1u

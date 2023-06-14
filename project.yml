@@ -80,7 +80,7 @@
   :placement: :end
   :flag: "-l${1}"
   :path_flag: "-L ${1}"
-  :system: []
+  :system: [m]
   :test: []
   :release: []
 
