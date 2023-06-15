@@ -1,6 +1,8 @@
 = Introduction to Object-Oriented Programming in C for Embedded Systems
 :sectnums:
 :imagesdir: media
+:source-highlighter: rouge
+:rouge-style: monokai
 
 == Object-Oriented Programming (OOP)
 Object-oriented programming (OOP) is a programming paradigm that revolves around the concept of objects, which encapsulate data and behavior. In OOP, programs are designed by creating classes, which serve as templates for creating objects. Each object has its own set of properties and methods, which can be used to manipulate or interact with the object.
