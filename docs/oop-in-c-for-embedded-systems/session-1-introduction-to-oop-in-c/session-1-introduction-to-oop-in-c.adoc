@@ -9,21 +9,22 @@ Object-oriented programming (OOP) is a programming paradigm that revolves around
 
 One of the main advantages of OOP is its ability to organize complex code into smaller, more manageable pieces. This makes it easier to write, test, and maintain code, especially in large-scale projects. Additionally, OOP promotes code reusability, as classes can be reused across multiple projects.
 
-=== What is a class?
-In OOP, a class is a blueprint or template that defines the structure and behavior of objects. It encapsulates data (known as member variables or attributes) and functions (known as member methods or behaviors) that operate on that data.
-
-A class serves as a blueprint for creating multiple objects with similar properties and behaviors. It defines the attributes that each object will have and the operations that can be performed on those objects.
-
-=== What is an object?
-In OOP, an object is an instance of a class. It is a concrete, tangible entity that is created based on the class definition.
-
-When we create an object, memory is allocated to hold the object's data, and the object can then be accessed and manipulated. Objects have their own unique state, determined by the values assigned to their attributes.
-
 == Advantages of OOP in Embedded Systems
 * Code reusability: Reuse existing classes and libraries across projects
 * Modularity: Divide complex systems into smaller, manageable objects
 * Maintainability: Changes in one object have minimal impact on other objects
 * Encapsulation: Protects data and implementation details from external access
+
+== OOP building blocks
+=== Class
+In OOP, a class is a blueprint or template that defines the structure and behavior of objects. It encapsulates data (known as member variables or attributes) and functions (known as member methods or behaviors) that operate on that data.
+
+A class serves as a blueprint for creating multiple objects with similar properties and behaviors. It defines the attributes that each object will have and the operations that can be performed on those objects.
+
+=== Object
+In OOP, an object is an instance of a class. It is a concrete, tangible entity that is created based on the class definition.
+
+When we create an object, memory is allocated to hold the object's data, and the object can then be accessed and manipulated. Objects have their own unique state, determined by the values assigned to their attributes.
 
 == OOP in C?
 OOP is a programming paradigm.
