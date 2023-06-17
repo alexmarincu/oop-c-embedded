@@ -1,16 +1,18 @@
 #ifndef AccelerationAccumulator_h
 #define AccelerationAccumulator_h
-#include "../acceleration/Acceleration3d.h"
+#include "../accelerometer_data_models/Acceleration3d.h"
 
 typedef struct AccelerationAccumulator AccelerationAccumulator;
 struct AccelerationAccumulator {
-    Acceleration3d cumulatedValueIn098mg;
-    uint8_t samplesCount;
+    Acceleration3d accumulatedAcceleration3dIn098mg;
+    uint8_t count;
 };
 
 AccelerationAccumulator * AccelerationAccumulator_init(AccelerationAccumulator * const self);
-void AccelerationAccumulator_cumulate(AccelerationAccumulator * const self, Acceleration3d * const acceleration3dIn098mg);
+void AccelerationAccumulator_accumulate(AccelerationAccumulator * const self, Acceleration3d * const acceleration3dIn098mg);
 void AccelerationAccumulator_reset(AccelerationAccumulator * const self);
-Acceleration3d * AccelerationAccumulator_calculateAverage(AccelerationAccumulator * const self, Acceleration3d * const averageAcceleration3d);
+Acceleration3d * AccelerationAccumulator_calculateAverage(
+    AccelerationAccumulator * const self, Acceleration3d * const acceleration3dIn098mg
+);
 
 #endif // AccelerationAccumulator_h

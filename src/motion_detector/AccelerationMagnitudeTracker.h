@@ -7,8 +7,8 @@
 
 typedef struct AccelerationMagnitudeTracker AccelerationMagnitudeTracker;
 struct AccelerationMagnitudeTracker {
-    uint16_t valuesIn098mg[AccelerationMagnitudeTracker_valuesMaxCount];
-    uint8_t valuesCount;
+    uint16_t accelerationMagnitudesIn098mg[AccelerationMagnitudeTracker_valuesMaxCount];
+    uint8_t count;
 };
 
 AccelerationMagnitudeTracker * AccelerationMagnitudeTracker_init(AccelerationMagnitudeTracker * const self);

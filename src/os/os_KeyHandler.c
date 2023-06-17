@@ -24,7 +24,7 @@ static void os_KeyHandler_onRKeyPress(os_KeyHandler * const self) {
 
 static void os_KeyHandler_onSKeyPress(os_KeyHandler * const self) {
     (void)self;
-    os_Interrupts_simAccDataAvailable();
+    os_Interrupts_simAccelerometerDataAvailable();
 }
 
 static void os_KeyHandler_onTKeyPress(os_KeyHandler * const self) {

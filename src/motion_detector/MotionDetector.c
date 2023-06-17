@@ -10,12 +10,12 @@ struct MotionDetector {
     bool isMoving;
     AccelerationAccumulator accelerationAccumulator;
     AccelerationMagnitudeTracker accelerationMagnitudeTracker;
-    Timer averageComputationTimer;
-    uint16_t const averageComputationTimerDurationIn1ms;
+    Timer averageAccelerationCalculationTimer;
+    uint16_t const averageAccelerationCalculationTimerDurationIn1ms;
 };
 
 MotionDetector * MotionDetector_getInstance(void) {
-    static MotionDetector self = { .averageComputationTimerDurationIn1ms = 1000 };
+    static MotionDetector self = { .averageAccelerationCalculationTimerDurationIn1ms = 1000 };
     return &self;
 }
 
@@ -23,13 +23,13 @@ MotionDetector * MotionDetector_init(MotionDetector * const self) {
     self->isMoving = false;
     self->accelerationAccumulator = (AccelerationAccumulator){ 0 };
     self->accelerationMagnitudeTracker = (AccelerationMagnitudeTracker){ 0 };
-    Timer_start(Timer_init(&self->averageComputationTimer), self->averageComputationTimerDurationIn1ms);
+    Timer_start(Timer_init(&self->averageAccelerationCalculationTimer), self->averageAccelerationCalculationTimerDurationIn1ms);
     return self;
 }
 
 void MotionDetector_run(MotionDetector * const self) {
-    if (Timer_isExpired(&self->averageComputationTimer)) {
-        Timer_start(&self->averageComputationTimer, self->averageComputationTimerDurationIn1ms);
+    if (Timer_isExpired(&self->averageAccelerationCalculationTimer)) {
+        Timer_start(&self->averageAccelerationCalculationTimer, self->averageAccelerationCalculationTimerDurationIn1ms);
         uint16_t const accelerationMagnitudeIn098mg =
             Acceleration3d_magnitude(AccelerationAccumulator_calculateAverage(&self->accelerationAccumulator, &(Acceleration3d){ 0 }));
         AccelerationAccumulator_reset(&self->accelerationAccumulator);
@@ -47,5 +47,5 @@ void MotionDetector_run(MotionDetector * const self) {
 }
 
 void MotionDetector_processAcceleration3d(MotionDetector * const self, Acceleration3d * const acceleration3dIn098mg) {
-    AccelerationAccumulator_cumulate(&self->accelerationAccumulator, acceleration3dIn098mg);
+    AccelerationAccumulator_accumulate(&self->accelerationAccumulator, acceleration3dIn098mg);
 }

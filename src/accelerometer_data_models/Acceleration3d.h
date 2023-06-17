@@ -10,7 +10,7 @@ struct Acceleration3d {
 };
 
 Acceleration3d * Acceleration3d_plus(Acceleration3d * const self, Acceleration3d * const other);
-Acceleration3d * Acceleration3d_div(Acceleration3d * const self, uint8_t other);
+Acceleration3d * Acceleration3d_div(Acceleration3d * const self, uint8_t value);
 uint16_t Acceleration3d_magnitude(Acceleration3d * const self);
 
 #endif // Acceleration3d_h

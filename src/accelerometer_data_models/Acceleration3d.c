@@ -8,10 +8,10 @@ Acceleration3d * Acceleration3d_plus(Acceleration3d * const self, Acceleration3d
     return self;
 }
 
-Acceleration3d * Acceleration3d_div(Acceleration3d * const self, uint8_t other) {
-    self->x /= other;
-    self->y /= other;
-    self->z /= other;
+Acceleration3d * Acceleration3d_div(Acceleration3d * const self, uint8_t value) {
+    self->x /= value;
+    self->y /= value;
+    self->z /= value;
     return self;
 }
 

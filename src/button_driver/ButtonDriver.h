@@ -1,6 +1,6 @@
 #ifndef ButtonDriver_h
 #define ButtonDriver_h
-#include "../button_ctrl/ButtonCtrl.h"
+#include "../button_controller/ButtonCtrl.h"
 
 typedef struct ButtonDriver ButtonDriver;
 

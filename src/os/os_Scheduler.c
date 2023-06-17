@@ -1,9 +1,9 @@
 #include "os_Scheduler.h"
-#include "../acc_config_storage/AccConfigStorage.h"
-#include "../acc_configurator/AccConfigurator.h"
-#include "../acc_driver/AccDriver.h"
-#include "../acc_driver/AccDriverProvider.h"
-#include "../button_ctrl/ButtonCtrl.h"
+#include "../accelerometer_configurator/AccelerometerConfigurator.h"
+#include "../accelerometer_data_storage/AccelerometerConfigStorage.h"
+#include "../accelerometer_driver/AccelerometerDriver.h"
+#include "../accelerometer_driver/AccelerometerDriverProvider.h"
+#include "../button_controller/ButtonCtrl.h"
 #include "../button_driver/ButtonDriver.h"
 #include "../lib/timer/Timer.h"
 #include "../motion_detector/MotionDetector.h"
@@ -12,7 +12,7 @@
 
 struct os_Scheduler {
     ButtonDriver * buttonDriver;
-    AccDriverProvider * accDriverProvider;
+    AccelerometerDriverProvider * accelerometerDriverProvider;
     MotionDetector * motionDetector;
     os_Task tasks[4];
 };
@@ -27,7 +27,7 @@ static void os_Scheduler_runAt20ms(os_Scheduler * const self) {
 
 static void os_Scheduler_runAt50ms(os_Scheduler * const self) {
     (void)self;
-    AccDriver_run(AccDriverProvider_getCurrentAccDriver(self->accDriverProvider));
+    AccelerometerDriver_run(AccelerometerDriverProvider_getCurrentAccelerometerDriver(self->accelerometerDriverProvider));
     MotionDetector_run(self->motionDetector);
 }
 
@@ -50,13 +50,15 @@ os_Scheduler * os_Scheduler_init(os_Scheduler * const self) {
         ButtonDriver_getInstance(),
         ButtonCtrl_init(
             ButtonCtrl_getInstance(),
-            AccConfigurator_init(
-                AccConfigurator_getInstance(),
-                AccConfigStorage_getAccConfigDao(AccConfigStorage_init(AccConfigStorage_getInstance()))
+            AccelerometerConfigurator_init(
+                AccelerometerConfigurator_getInstance(),
+                AccelerometerConfigStorage_getAccelerometerConfigDao(
+                    AccelerometerConfigStorage_init(AccelerometerConfigStorage_getInstance())
+                )
             )
         )
     );
-    self->accDriverProvider = AccDriverProvider_init(AccDriverProvider_getInstance());
+    self->accelerometerDriverProvider = AccelerometerDriverProvider_init(AccelerometerDriverProvider_getInstance());
     self->motionDetector = MotionDetector_init(MotionDetector_getInstance());
     os_Task_init(&self->tasks[0], 10, self, (os_Task_operationFun)os_Scheduler_runAt10ms);
     os_Task_init(&self->tasks[1], 20, self, (os_Task_operationFun)os_Scheduler_runAt20ms);
