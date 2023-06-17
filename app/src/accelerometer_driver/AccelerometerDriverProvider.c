@@ -1,8 +1,8 @@
 #include "AccelerometerDriverProvider.h"
+#include "../../../lib/src/observer/Observer.h"
+#include "../../../lib/src/observer/Subject.h"
 #include "../accelerometer_data_models/AccelerometerConfig.h"
 #include "../accelerometer_data_storage/AccelerometerConfigStorage.h"
-#include "../lib/observer/Observer.h"
-#include "../lib/observer/Subject.h"
 #include "AccelerometerSimulatorDriver.h"
 #include "RealAccelerometerDriver.h"
 #include <stdio.h>

@@ -1,4 +1,4 @@
 # Generated files
-build/*
+**/build/
 # Doc diagram cache
 **/.asciidoctor/

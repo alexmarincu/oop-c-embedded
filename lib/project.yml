@@ -13,7 +13,7 @@
 
 :release_build:
   # :output: oopce.exe
-  :output: oopce.out
+  :output: lib.a
 
 :environment:
   # - :path:
@@ -22,7 +22,7 @@
 
 :extension:
   # :executable: .exe
-  :executable: .out
+  :executable: .a
 
 :paths:
   :test:
@@ -80,7 +80,7 @@
   :placement: :end
   :flag: "-l${1}"
   :path_flag: "-L ${1}"
-  :system: [m]
+  :system: []
   :test: []
   :release: []
 
