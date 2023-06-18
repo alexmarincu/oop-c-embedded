@@ -1,96 +1,97 @@
 ---
 :project:
-  :use_exceptions: FALSE
-  :use_test_preprocessor: TRUE
-  :use_auxiliary_dependencies: TRUE
-  :build_root: build
-  :release_build: TRUE
-  :test_file_prefix: test_
-  :which_ceedling: gem
-  :ceedling_version: 0.31.1
-  :default_tasks:
-    - release
-
+    :use_exceptions: FALSE
+    :use_test_preprocessor: TRUE
+    :use_auxiliary_dependencies: TRUE
+    :build_root: build
+    :release_build: TRUE
+    :test_file_prefix: test_
+    :which_ceedling: gem
+    :ceedling_version: 0.31.1
+    :default_tasks:
+        - release
 :release_build:
-  # :output: oopce.exe
-  :output: utils.a
-
+    # :output: oopce.exe
+    :output: utils.a
 :environment:
-  # - :path:
-  #   - C:\Users\uidn8285\scoopless\gcc\11.2.0\bin
-  #   - C:\Users\uidn8285\scoop\apps\python\3.10.8\Scripts
-
+    # - :path:
+    #   - C:\Users\uidn8285\scoopless\gcc\11.2.0\bin
+    #   - C:\Users\uidn8285\scoop\apps\python\3.10.8\Scripts
 :extension:
-  # :executable: .exe
-  :executable: .a
-
+    # :executable: .exe
+    :executable: .a
 :paths:
-  :test:
-    - +:test/**
-    - -:test/support
-  :source:
-    - src/**
-  :support:
-    - test/support
-  :libraries: []
-
+    :test:
+        - +:test/**
+        - -:test/support
+    :source:
+        - src/**
+    :support:
+        - test/support
+    :libraries: []
 :defines:
-  :common: &common_defines []
-  :test:
-    - *common_defines
-    - TEST
-  :test_preprocess:
-    - *common_defines
-    - TEST
-
+    :common: &common_defines []
+    :test:
+        - *common_defines
+        - TEST
+    :test_preprocess:
+        - *common_defines
+        - TEST
 :flags:
-  :release:
-    :compile:
-      :*:
-        # - -save-temps
-        - -std=c99
-        - -Wall -Wextra -Werror
-        - -g
-
+    :release:
+        :compile:
+            :*:
+                # - -save-temps
+                - -std=c99
+                - -Wall -Wextra -Werror
+                - -g
 :cmock:
-  :mock_prefix: mock_
-  :when_no_prototypes: :warn
-  :when_ptr: :compare_ptr
-  :enforce_strict_ordering: TRUE
-  :plugins:
-    - :ignore
-    - :callback
-    - :ignore_arg
-  :treat_externs: :include
-  :treat_as:
-    uint8_t: HEX8
-    uint16: HEX16
-    uint32_t: UINT32
-    int8: INT8
-    bool: UINT8
-
+    :mock_prefix: mock_
+    :when_no_prototypes: :warn
+    :when_ptr: :compare_ptr
+    :enforce_strict_ordering: TRUE
+    :plugins:
+        - :ignore
+        - :callback
+        - :ignore_arg
+    :treat_externs: :include
+    :treat_as:
+        uint8_t: HEX8
+        uint16: HEX16
+        uint32_t: UINT32
+        int8: INT8
+        bool: UINT8
 :gcov:
-  :reports:
-    - HtmlDetailed
-  :gcovr:
-    :html_medium_threshold: 75
-    :html_high_threshold: 90
-
+    :reports:
+        - HtmlDetailed
+    :gcovr:
+        :html_medium_threshold: 75
+        :html_high_threshold: 90
 :libraries:
-  :placement: :end
-  :flag: "-l${1}"
-  :path_flag: "-L ${1}"
-  :system: []
-  :test: []
-  :release: []
-
+    :placement: :end
+    :flag: "-l${1}"
+    :path_flag: "-L ${1}"
+    :system: []
+    :test: []
+    :release: []
+# :tools:
+#     :pre_test_fixture_execute:
+#         :executable: valgrind
+#         :arguments:
+#             - --track-origins=yes
+#             - --leak-check=full
+#             - --show-leak-kinds=all
+#             - --errors-for-leak-kinds=all
+#             - --error-exitcode=10
+#             - ${1}
 :plugins:
-  :load_paths:
-    - "#{Ceedling.load_path}"
-  :enabled:
-    # - stdout_pretty_tests_report
-    - stdout_gtestlike_tests_report
-    - module_generator
-    - gcov
-    - xml_tests_report
-    - compile_commands_json
+    :load_paths:
+        - "#{Ceedling.load_path}"
+    :enabled:
+        # - stdout_pretty_tests_report
+        - stdout_gtestlike_tests_report
+        - module_generator
+        - gcov
+        - xml_tests_report
+        - compile_commands_json
+        # - command_hooks
