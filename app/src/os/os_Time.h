@@ -1,6 +1,6 @@
 #ifndef os_Time_h
 #define os_Time_h
-#include "../../../lib/src/timer/TimeSource.h"
+#include "../../../utils/src/timer/TimeSource.h"
 #include <stdint.h>
 
 typedef struct os_Time os_Time;

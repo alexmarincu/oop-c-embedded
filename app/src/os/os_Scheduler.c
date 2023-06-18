@@ -1,5 +1,5 @@
 #include "os_Scheduler.h"
-#include "../../../lib/src/timer/Timer.h"
+#include "../../../utils/src/timer/Timer.h"
 #include "../accelerometer_configurator/AccelerometerConfigurator.h"
 #include "../accelerometer_data_storage/AccelerometerConfigStorage.h"
 #include "../accelerometer_driver/AccelerometerDriver.h"

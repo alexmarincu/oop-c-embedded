@@ -8,7 +8,7 @@
 skinparam ArrowColor Gray
 skinparam PackageBackgroundColor #DDDDDD
 skinparam Linetype ortho
-package lib {
+package utils {
     package timer {
         interface TimeSource
         class Timer
@@ -108,7 +108,7 @@ package os {
     os_Task -> os_Time
     os_Time ..u[dotted]|> TimeSource
 }
-accelerometer_data_models --u[hidden] lib
+accelerometer_data_models --u[hidden] utils
 motion_detector --u[hidden] accelerometer_data_models
 accelerometer_controller ---u[hidden] motion_detector
 accelerometer_driver --u[hidden] accelerometer_controller

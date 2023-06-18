@@ -1,5 +1,5 @@
 #include "AccelerometerConfigStorage.h"
-#include "../../../lib/src/observer/Subject.h"
+#include "../../../utils/src/observer/Subject.h"
 #include <string.h>
 
 #define AccelerometerConfigStorage_observersMaxCount 1u

@@ -69,37 +69,37 @@
             }
         },
         {
-            "label": "lib: Build",
+            "label": "utils: Build",
             "type": "shell",
             "command": "ceedling release",
             "group": "build",
             "problemMatcher": [],
             "options": {
-                "cwd": "${workspaceFolder}/lib"
+                "cwd": "${workspaceFolder}/utils"
             }
         },
         {
-            "label": "lib: Clean",
+            "label": "utils: Clean",
             "type": "shell",
             "command": "ceedling clobber",
             "group": "build",
             "problemMatcher": [],
             "options": {
-                "cwd": "${workspaceFolder}/lib"
+                "cwd": "${workspaceFolder}/utils"
             }
         },
         {
-            "label": "lib: Rebuild",
+            "label": "utils: Rebuild",
             "type": "shell",
             "command": "ceedling clobber release",
             "group": "build",
             "problemMatcher": [],
             "options": {
-                "cwd": "${workspaceFolder}/lib"
+                "cwd": "${workspaceFolder}/utils"
             }
         },
         {
-            "label": "lib: Test",
+            "label": "utils: Test",
             "type": "shell",
             "command": "ceedling test:all",
             "group": {
@@ -108,17 +108,17 @@
             },
             "problemMatcher": [],
             "options": {
-                "cwd": "${workspaceFolder}/lib"
+                "cwd": "${workspaceFolder}/utils"
             }
         },
         {
-            "label": "lib: Test with Coverage",
+            "label": "utils: Test with Coverage",
             "type": "shell",
             "command": "ceedling gcov:all utils:gcov",
             "group": "test",
             "problemMatcher": [],
             "options": {
-                "cwd": "${workspaceFolder}/lib"
+                "cwd": "${workspaceFolder}/utils"
             }
         },
         {

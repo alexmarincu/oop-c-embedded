@@ -13,7 +13,7 @@
 
 :release_build:
   # :output: oopce.exe
-  :output: lib.a
+  :output: utils.a
 
 :environment:
   # - :path:

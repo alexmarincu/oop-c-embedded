@@ -34,7 +34,7 @@
     - test/support
   :libraries: []
   :include:
-    - ../lib/src/**
+    - ../utils/src/**
 
 :defines:
   :common: &common_defines []
@@ -84,7 +84,7 @@
   :path_flag: "-L ${1}"
   :system: [-lm]
   :test: []
-  :release: [../lib/build/artifacts/release/lib.a]
+  :release: [../utils/build/artifacts/release/utils.a]
 
 :plugins:
   :load_paths:
