@@ -27,9 +27,12 @@
         {
             "label": "app: Run",
             "type": "shell",
-            // "command": "build/artifacts/release/oopce.exe",
-            "command": "build/artifacts/release/oopce.out",
-            "group": "build",
+            "windows": {
+                "command": "build/artifacts/release/oopce.exe"
+            },
+            "linux": {
+                "command": "build/artifacts/release/oopce.out"
+            },
             "problemMatcher": [],
             "options": {
                 "cwd": "${workspaceFolder}/app"
@@ -125,7 +128,6 @@
             "label": "Merge compile commands",
             "type": "shell",
             "command": "jq -s add utils/build/artifacts/compile_commands.json app/build/artifacts/compile_commands.json > build/artifacts/compile_commands.json",
-            "group": "build",
             "problemMatcher": [],
             "options": {
                 "cwd": "${workspaceFolder}"
@@ -134,12 +136,28 @@
         {
             "label": "adoc2pdf",
             "type": "shell",
-            "command": "rm -rf media; asciidoctor-pdf -r asciidoctor-diagram ${fileBasename}",
-            "group": "build",
+            "command": "asciidoctor-pdf -r asciidoctor-diagram ${fileBasename}",
             "problemMatcher": [],
             "options": {
                 "cwd": "${fileDirname}"
-            }
-        }
+            },
+            "dependsOn": [
+                "rm doc media"
+            ]
+        },
+        {
+            "label": "rm doc media",
+            "type": "shell",
+            "windows": {
+                "command": "Remove-Item -Path media -Recurse -Force"
+            },
+            "linux": {
+                "command": "rm -rf media"
+            },
+            "problemMatcher": [],
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+        },
     ]
 }

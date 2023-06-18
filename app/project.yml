@@ -11,15 +11,12 @@
     :default_tasks:
         - release
 :release_build:
-    # :output: oopce.exe
-    :output: oopce.out
+    :output: oopce
 :environment:
-    # - :path:
-    #   - C:\Users\uidn8285\scoopless\gcc\11.2.0\bin
-    #   - C:\Users\uidn8285\scoop\apps\python\3.10.8\Scripts
-:extension:
-    # :executable: .exe
-    :executable: .out
+    # windows:
+    - :path:
+      - C:\Users\uidn8285\scoopless\gcc\11.2.0\bin
+      - C:\Users\uidn8285\scoop\apps\python\3.10.8\Scripts
 :paths:
     :test:
         - +:test/**

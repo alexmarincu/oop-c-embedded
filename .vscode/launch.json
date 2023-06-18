@@ -6,11 +6,16 @@
     "configurations": [
         {
             "name": "Test Debug",
-            // "miDebuggerPath": "C:\\Users\\uidn8285\\scoopless\\gcc\\11.2.0\\bin\\gdb.exe",
             "type": "cppdbg",
-            "program": "${workspaceRoot}/build/test/out/test_${input:name}.out",
             "request": "launch",
-            "cwd": "${workspaceRoot}",
+            "cwd": "${fileDirname}",
+            "windows": {
+                "miDebuggerPath": "C:\\Users\\uidn8285\\scoopless\\gcc\\11.2.0\\bin\\gdb.exe",
+                "program": "${fileDirname}/../build/test/out/${fileBasenameNoExtension}.exe"
+            },
+            "linux": {
+                "program": "${fileDirname}/../build/test/out/${fileBasenameNoExtension}.out"
+            },
             "args": [],
             "stopAtEntry": false,
             "environment": [],
@@ -25,12 +30,16 @@
         },
         {
             "name": "Debug",
-            // "miDebuggerPath": "C:\\Users\\uidn8285\\scoopless\\gcc\\11.2.0\\bin\\gdb.exe",
             "type": "cppdbg",
-            // "program": "${workspaceRoot}/build/release/oopce.exe",
-            "program": "${workspaceRoot}/build/release/oopce.out",
             "request": "launch",
-            "cwd": "${workspaceRoot}",
+            "cwd": "${workspaceFolder}",
+            "windows": {
+                "miDebuggerPath": "C:\\Users\\uidn8285\\scoopless\\gcc\\11.2.0\\bin\\gdb.exe",
+                "program": "${workspaceFolder}/app/build/release/oopce.exe",
+            },
+            "linux": {
+                "program": "${workspaceFolder}/app/build/release/oopce.out"
+            },
             "args": [],
             "stopAtEntry": false,
             "environment": [],
