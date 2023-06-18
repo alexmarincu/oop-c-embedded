@@ -41,11 +41,6 @@ os_Scheduler * os_Scheduler_getInstance(void) {
 }
 
 os_Scheduler * os_Scheduler_init(os_Scheduler * const self) {
-    TimerClass_init(
-        TimerClass_getInstance(),
-        os_Time_getTimeSource(os_Time_init(os_Time_getInstance()))
-    );
-    os_TaskClass_init(os_TaskClass_getInstance());
     self->buttonDriver = ButtonDriver_init(
         ButtonDriver_getInstance(),
         ButtonCtrl_init(
