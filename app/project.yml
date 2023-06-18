@@ -11,7 +11,10 @@
     :default_tasks:
         - release
 :release_build:
-    :output: oopce
+    # windows:
+    :output: oopce.exe
+    # linux:
+    # :output: oopce.out
 :environment:
     # windows:
     - :path:

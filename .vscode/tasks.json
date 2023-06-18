@@ -2,30 +2,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "app: Build",
-            "type": "shell",
-            "command": "ceedling release",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "problemMatcher": [],
-            "options": {
-                "cwd": "${workspaceFolder}/app"
-            }
-        },
-        {
-            "label": "app: Clean",
-            "type": "shell",
-            "command": "ceedling clobber",
-            "group": "build",
-            "problemMatcher": [],
-            "options": {
-                "cwd": "${workspaceFolder}/app"
-            }
-        },
-        {
-            "label": "app: Run",
+            "label": "Run",
             "type": "shell",
             "windows": {
                 "command": "build/artifacts/release/oopce.exe"
@@ -36,101 +13,156 @@
             "problemMatcher": [],
             "options": {
                 "cwd": "${workspaceFolder}/app"
+            },
+            "presentation": {
+                "panel": "new"
             }
         },
         {
-            "label": "app: Rebuild",
-            "type": "shell",
-            "command": "ceedling clobber release",
-            "group": "build",
-            "problemMatcher": [],
-            "options": {
-                "cwd": "${workspaceFolder}/app"
-            }
-        },
-        {
-            "label": "app: Test",
-            "type": "shell",
-            "command": "ceedling test:all",
+            "label": "Build",
             "group": {
-                "kind": "test",
+                "kind": "build",
                 "isDefault": true
             },
-            "problemMatcher": [],
-            "options": {
-                "cwd": "${workspaceFolder}/app"
+            "dependsOn": [
+                "module: Build",
+                "Merge compile commands"
+            ],
+            "dependsOrder": "sequence",
+            "presentation": {
+                "panel": "new"
             }
         },
         {
-            "label": "app: Test with Coverage",
-            "type": "shell",
-            "command": "ceedling gcov:all utils:gcov",
-            "group": "test",
-            "problemMatcher": [],
-            "options": {
-                "cwd": "${workspaceFolder}/app"
-            }
-        },
-        {
-            "label": "utils: Build",
+            "label": "module: Build",
             "type": "shell",
             "command": "ceedling release",
             "group": "build",
             "problemMatcher": [],
             "options": {
-                "cwd": "${workspaceFolder}/utils"
+                "cwd": "${workspaceFolder}/${input:module}"
+            },
+            "presentation": {
+                "panel": "new"
             }
         },
         {
-            "label": "utils: Clean",
+            "label": "Clean",
+            "group": "build",
+            "dependsOn": [
+                "module: Clean"
+            ],
+            "dependsOrder": "sequence",
+            "presentation": {
+                "panel": "new"
+            }
+        },
+        {
+            "label": "module: Clean",
             "type": "shell",
             "command": "ceedling clobber",
             "group": "build",
             "problemMatcher": [],
             "options": {
-                "cwd": "${workspaceFolder}/utils"
+                "cwd": "${workspaceFolder}/${input:module}"
+            },
+            "presentation": {
+                "panel": "new"
             }
         },
         {
-            "label": "utils: Rebuild",
+            "label": "Rebuild",
+            "group": "build",
+            "dependsOn": [
+                "module: Rebuild",
+                "Merge compile commands"
+            ],
+            "dependsOrder": "sequence",
+            "presentation": {
+                "panel": "new"
+            }
+        },
+        {
+            "label": "module: Rebuild",
             "type": "shell",
             "command": "ceedling clobber release",
             "group": "build",
             "problemMatcher": [],
             "options": {
-                "cwd": "${workspaceFolder}/utils"
+                "cwd": "${workspaceFolder}/${input:module}"
+            },
+            "presentation": {
+                "panel": "new"
             }
         },
         {
-            "label": "utils: Test",
-            "type": "shell",
-            "command": "ceedling test:all",
+            "label": "Test",
             "group": {
                 "kind": "test",
                 "isDefault": true
             },
-            "problemMatcher": [],
-            "options": {
-                "cwd": "${workspaceFolder}/utils"
+            "dependsOn": [
+                "module: Test",
+                "Merge compile commands"
+            ],
+            "dependsOrder": "sequence",
+            "presentation": {
+                "panel": "new"
             }
         },
         {
-            "label": "utils: Test with Coverage",
+            "label": "module: Test",
+            "type": "shell",
+            "command": "ceedling test:all",
+            "group": "test",
+            "problemMatcher": [],
+            "options": {
+                "cwd": "${workspaceFolder}/${input:module}"
+            },
+            "presentation": {
+                "panel": "new"
+            }
+        },
+        {
+            "label": "Test with Coverage",
+            "group": "test",
+            "dependsOn": [
+                "module: Test with Coverage",
+                "Merge compile commands"
+            ],
+            "dependsOrder": "sequence",
+            "presentation": {
+                "panel": "new"
+            }
+        },
+        {
+            "label": "module: Test with Coverage",
             "type": "shell",
             "command": "ceedling gcov:all utils:gcov",
             "group": "test",
             "problemMatcher": [],
             "options": {
-                "cwd": "${workspaceFolder}/utils"
+                "cwd": "${workspaceFolder}/${input:module}"
+            },
+            "presentation": {
+                "panel": "new"
             }
         },
         {
             "label": "Merge compile commands",
             "type": "shell",
-            "command": "jq -s add utils/build/artifacts/compile_commands.json app/build/artifacts/compile_commands.json > build/artifacts/compile_commands.json",
+            "windows": {
+                "command": "New-Item -ItemType Directory -Path build/artifacts/ -Force | Out-Null; jq -s add utils/build/artifacts/compile_commands.json, app/build/artifacts/compile_commands.json | out-file -encoding utf8 build/artifacts/compile_commands.json"
+            },
+            "linux": {
+                "command": "jq -s add utils/build/artifacts/compile_commands.json app/build/artifacts/compile_commands.json > build/artifacts/compile_commands.json"
+            },
             "problemMatcher": [],
             "options": {
                 "cwd": "${workspaceFolder}"
+            },
+            "presentation": {
+                "panel": "new"
             }
         },
         {
@@ -143,7 +175,10 @@
             },
             "dependsOn": [
                 "rm doc media"
-            ]
+            ],
+            "presentation": {
+                "panel": "new"
+            }
         },
         {
             "label": "rm doc media",
@@ -158,6 +193,21 @@
             "options": {
                 "cwd": "${fileDirname}"
             },
+            "presentation": {
+                "panel": "new"
+            }
         },
+    ],
+    "inputs": [
+        {
+            "id": "module",
+            "description": "Module",
+            "default": "app",
+            "type": "pickString",
+            "options": [
+                "app",
+                "utils"
+            ]
+        }
     ]
 }
