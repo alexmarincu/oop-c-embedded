@@ -12,6 +12,8 @@ struct Timer {
 
 Timer * Timer_init(Timer * const self);
 void Timer_start(Timer * const self, uint32_t const durationIn1ms);
+void Timer_stop(Timer * const self);
+bool Timer_isRunning(Timer * const self);
 bool Timer_isExpired(Timer * const self);
 
 #endif // Timer_h
