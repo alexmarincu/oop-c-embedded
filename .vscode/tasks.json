@@ -2,7 +2,7 @@
     "version": "2.0.0",
     "tasks": [
         {
-            "label": "Run",
+            "label": ":: Run",
             "type": "shell",
             "windows": {
                 "command": "build/artifacts/release/oopce.exe"
@@ -19,7 +19,7 @@
             }
         },
         {
-            "label": "Build",
+            "label": ":: Build",
             "group": {
                 "kind": "build",
                 "isDefault": true
@@ -29,6 +29,48 @@
                 "Merge compile commands"
             ],
             "dependsOrder": "sequence",
+            "presentation": {
+                "panel": "new"
+            }
+        },
+        {
+            "label": ":: Build all",
+            "group": "build",
+            "dependsOn": [
+                "all: Build",
+                "Merge compile commands"
+            ],
+            "dependsOrder": "sequence",
+            "presentation": {
+                "panel": "new"
+            }
+        },
+        {
+            "label": "all: Build",
+            "type": "shell",
+            "windows": {
+                "command": [
+                    "cd utils; ceedling release",
+                    ";",
+                    "cd ../accelerometer_data_models; ceedling release",
+                    ";",
+                    "cd ../app; ceedling release",
+                ],
+            },
+            "linux": {
+                "command": [
+                    "cd utils & ceedling release",
+                    "&",
+                    "cd ../accelerometer_data_models & ceedling release",
+                    "&",
+                    "cd ../app & ceedling release",
+                ],
+            },
+            "group": "build",
+            "problemMatcher": [],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
             "presentation": {
                 "panel": "new"
             }
@@ -47,12 +89,53 @@
             }
         },
         {
-            "label": "Clean",
+            "label": ":: Clean",
             "group": "build",
             "dependsOn": [
                 "module: Clean"
             ],
             "dependsOrder": "sequence",
+            "presentation": {
+                "panel": "new"
+            }
+        },
+        {
+            "label": ":: Clean all",
+            "group": "build",
+            "dependsOn": [
+                "all: Clean"
+            ],
+            "dependsOrder": "sequence",
+            "presentation": {
+                "panel": "new"
+            }
+        },
+        {
+            "label": "all: Clean",
+            "type": "shell",
+            "windows": {
+                "command": [
+                    "cd utils; ceedling clobber",
+                    ";",
+                    "cd ../accelerometer_data_models; ceedling clobber",
+                    ";",
+                    "cd ../app; ceedling clobber",
+                ],
+            },
+            "linux": {
+                "command": [
+                    "cd utils & ceedling clobber",
+                    "&",
+                    "cd ../accelerometer_data_models & ceedling clobber",
+                    "&",
+                    "cd ../app & ceedling clobber",
+                ],
+            },
+            "group": "build",
+            "problemMatcher": [],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
             "presentation": {
                 "panel": "new"
             }
@@ -71,13 +154,55 @@
             }
         },
         {
-            "label": "Rebuild",
+            "label": ":: Rebuild",
             "group": "build",
             "dependsOn": [
                 "module: Rebuild",
                 "Merge compile commands"
             ],
             "dependsOrder": "sequence",
+            "presentation": {
+                "panel": "new"
+            }
+        },
+        {
+            "label": ":: Rebuild all",
+            "group": "build",
+            "dependsOn": [
+                "all: Rebuild",
+                "Merge compile commands"
+            ],
+            "dependsOrder": "sequence",
+            "presentation": {
+                "panel": "new"
+            }
+        },
+        {
+            "label": "all: Rebuild",
+            "type": "shell",
+            "windows": {
+                "command": [
+                    "cd utils; ceedling clobber release",
+                    ";",
+                    "cd ../accelerometer_data_models; ceedling clobber release",
+                    ";",
+                    "cd ../app; ceedling clobber release",
+                ],
+            },
+            "linux": {
+                "command": [
+                    "cd utils & ceedling clobber release",
+                    "&",
+                    "cd ../accelerometer_data_models & ceedling clobber release",
+                    "&",
+                    "cd ../app & ceedling clobber release",
+                ],
+            },
+            "group": "build",
+            "problemMatcher": [],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
             "presentation": {
                 "panel": "new"
             }
@@ -96,7 +221,7 @@
             }
         },
         {
-            "label": "Test",
+            "label": ":: Test",
             "group": {
                 "kind": "test",
                 "isDefault": true
@@ -106,6 +231,48 @@
                 "Merge compile commands"
             ],
             "dependsOrder": "sequence",
+            "presentation": {
+                "panel": "new"
+            }
+        },
+        {
+            "label": ":: Test all",
+            "group": "test",
+            "dependsOn": [
+                "all: Test",
+                "Merge compile commands"
+            ],
+            "dependsOrder": "sequence",
+            "presentation": {
+                "panel": "new"
+            }
+        },
+        {
+            "label": "all: Test",
+            "type": "shell",
+            "windows": {
+                "command": [
+                    "cd utils; ceedling test:all",
+                    ";",
+                    "cd ../accelerometer_data_models; ceedling test:all",
+                    ";",
+                    "cd ../app; ceedling test:all",
+                ],
+            },
+            "linux": {
+                "command": [
+                    "cd utils & ceedling test:all",
+                    "&",
+                    "cd ../accelerometer_data_models & ceedling test:all",
+                    "&",
+                    "cd ../app & ceedling test:all",
+                ],
+            },
+            "group": "test",
+            "problemMatcher": [],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
             "presentation": {
                 "panel": "new"
             }
@@ -124,13 +291,55 @@
             }
         },
         {
-            "label": "Test with Coverage",
+            "label": ":: Test with Coverage",
             "group": "test",
             "dependsOn": [
                 "module: Test with Coverage",
                 "Merge compile commands"
             ],
             "dependsOrder": "sequence",
+            "presentation": {
+                "panel": "new"
+            }
+        },
+        {
+            "label": ":: Test all with Coverage",
+            "group": "test",
+            "dependsOn": [
+                "all: Test with Coverage",
+                "Merge compile commands"
+            ],
+            "dependsOrder": "sequence",
+            "presentation": {
+                "panel": "new"
+            }
+        },
+        {
+            "label": "all: Test with Coverage",
+            "type": "shell",
+            "windows": {
+                "command": [
+                    "cd utils; ceedling gcov:all utils:gcov",
+                    ";",
+                    "cd ../accelerometer_data_models; ceedling gcov:all utils:gcov",
+                    ";",
+                    "cd ../app; ceedling gcov:all utils:gcov",
+                ],
+            },
+            "linux": {
+                "command": [
+                    "cd utils & ceedling gcov:all utils:gcov",
+                    "&",
+                    "cd ../accelerometer_data_models & ceedling gcov:all utils:gcov",
+                    "&",
+                    "cd ../app & ceedling gcov:all utils:gcov",
+                ],
+            },
+            "group": "test",
+            "problemMatcher": [],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
             "presentation": {
                 "panel": "new"
             }
@@ -152,10 +361,22 @@
             "label": "Merge compile commands",
             "type": "shell",
             "windows": {
-                "command": "New-Item -ItemType Directory -Path build/artifacts/ -Force | Out-Null; jq -s add utils/build/artifacts/compile_commands.json, app/build/artifacts/compile_commands.json | out-file -encoding utf8 build/artifacts/compile_commands.json"
+                "command": [
+                    "jq -s add",
+                    "utils/build/artifacts/compile_commands.json",
+                    "accelerometer_data_models/build/artifacts/compile_commands.json",
+                    "app/build/artifacts/compile_commands.json",
+                    "| out-file -encoding utf8 compile_commands.json"
+                ]
             },
             "linux": {
-                "command": "jq -s add utils/build/artifacts/compile_commands.json app/build/artifacts/compile_commands.json > build/artifacts/compile_commands.json"
+                "command": [
+                    "jq -s add",
+                    "utils/build/artifacts/compile_commands.json",
+                    "accelerometer_data_models/build/artifacts/compile_commands.json",
+                    "app/build/artifacts/compile_commands.json",
+                    "> compile_commands.json"
+                ]
             },
             "problemMatcher": [],
             "options": {
@@ -166,7 +387,7 @@
             }
         },
         {
-            "label": "adoc2pdf",
+            "label": ":: adoc2pdf",
             "type": "shell",
             "command": "asciidoctor-pdf -r asciidoctor-diagram ${fileBasename}",
             "problemMatcher": [],
@@ -206,7 +427,8 @@
             "type": "pickString",
             "options": [
                 "app",
-                "utils"
+                "utils",
+                "accelerometer_data_models"
             ]
         }
     ]
