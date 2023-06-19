@@ -1,4 +1,5 @@
 #include "os_Scheduler.h"
+#include "../../../motion_detector/src/MotionDetector.h"
 #include "../../../utils/src/timer/Timer.h"
 #include "../accelerometer_configurator/AccelerometerConfigurator.h"
 #include "../accelerometer_data_storage/AccelerometerConfigStorage.h"
@@ -6,7 +7,6 @@
 #include "../accelerometer_driver/AccelerometerDriverProvider.h"
 #include "../button_controller/ButtonCtrl.h"
 #include "../button_driver/ButtonDriver.h"
-#include "../motion_detector/MotionDetector.h"
 #include "os_Task.h"
 #include "os_Time.h"
 

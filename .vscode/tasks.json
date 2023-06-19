@@ -54,6 +54,8 @@
                     ";",
                     "cd ../accelerometer_data_models; ceedling release",
                     ";",
+                    "cd ../motion_detector; ceedling release",
+                    ";",
                     "cd ../app; ceedling release",
                 ],
             },
@@ -62,6 +64,8 @@
                     "cd utils & ceedling release",
                     "&",
                     "cd ../accelerometer_data_models & ceedling release",
+                    "&",
+                    "cd ../motion_detector & ceedling release",
                     "&",
                     "cd ../app & ceedling release",
                 ],
@@ -119,6 +123,8 @@
                     ";",
                     "cd ../accelerometer_data_models; ceedling clobber",
                     ";",
+                    "cd ../motion_detector; ceedling clobber",
+                    ";",
                     "cd ../app; ceedling clobber",
                 ],
             },
@@ -127,6 +133,8 @@
                     "cd utils & ceedling clobber",
                     "&",
                     "cd ../accelerometer_data_models & ceedling clobber",
+                    "&",
+                    "cd ../motion_detector & ceedling clobber",
                     "&",
                     "cd ../app & ceedling clobber",
                 ],
@@ -186,6 +194,8 @@
                     ";",
                     "cd ../accelerometer_data_models; ceedling clobber release",
                     ";",
+                    "cd ../motion_detector; ceedling clobber release",
+                    ";",
                     "cd ../app; ceedling clobber release",
                 ],
             },
@@ -194,6 +204,8 @@
                     "cd utils & ceedling clobber release",
                     "&",
                     "cd ../accelerometer_data_models & ceedling clobber release",
+                    "&",
+                    "cd ../motion_detector & ceedling clobber release",
                     "&",
                     "cd ../app & ceedling clobber release",
                 ],
@@ -256,6 +268,8 @@
                     ";",
                     "cd ../accelerometer_data_models; ceedling test:all",
                     ";",
+                    "cd ../motion_detector; ceedling test:all",
+                    ";",
                     "cd ../app; ceedling test:all",
                 ],
             },
@@ -264,6 +278,8 @@
                     "cd utils & ceedling test:all",
                     "&",
                     "cd ../accelerometer_data_models & ceedling test:all",
+                    "&",
+                    "cd ../motion_detector & ceedling test:all",
                     "&",
                     "cd ../app & ceedling test:all",
                 ],
@@ -323,6 +339,8 @@
                     ";",
                     "cd ../accelerometer_data_models; ceedling gcov:all utils:gcov",
                     ";",
+                    "cd ../motion_detector; ceedling gcov:all utils:gcov",
+                    ";",
                     "cd ../app; ceedling gcov:all utils:gcov",
                 ],
             },
@@ -331,6 +349,8 @@
                     "cd utils & ceedling gcov:all utils:gcov",
                     "&",
                     "cd ../accelerometer_data_models & ceedling gcov:all utils:gcov",
+                    "&",
+                    "cd ../motion_detector & ceedling gcov:all utils:gcov",
                     "&",
                     "cd ../app & ceedling gcov:all utils:gcov",
                 ],
@@ -365,6 +385,7 @@
                     "jq -s add",
                     "utils/build/artifacts/compile_commands.json",
                     "accelerometer_data_models/build/artifacts/compile_commands.json",
+                    "motion_detector/build/artifacts/compile_commands.json",
                     "app/build/artifacts/compile_commands.json",
                     "| out-file -encoding utf8 compile_commands.json"
                 ]
@@ -374,6 +395,7 @@
                     "jq -s add",
                     "utils/build/artifacts/compile_commands.json",
                     "accelerometer_data_models/build/artifacts/compile_commands.json",
+                    "motion_detector/build/artifacts/compile_commands.json",
                     "app/build/artifacts/compile_commands.json",
                     "> compile_commands.json"
                 ]
@@ -428,7 +450,8 @@
             "options": [
                 "app",
                 "utils",
-                "accelerometer_data_models"
+                "accelerometer_data_models",
+                "motion_detector"
             ]
         }
     ]

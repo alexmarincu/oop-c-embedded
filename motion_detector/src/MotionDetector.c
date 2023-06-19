@@ -1,5 +1,5 @@
 #include "MotionDetector.h"
-#include "../../../utils/src/timer/Timer.h"
+#include "../../utils/src/timer/Timer.h"
 #include "AccelerationAccumulator.h"
 #include "AccelerationMagnitudeTracker.h"
 #include <stdbool.h>
