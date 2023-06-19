@@ -1,6 +1,6 @@
 #ifndef AccelerometerConfigurator_h
 #define AccelerometerConfigurator_h
-#include "../accelerometer_data_models/AccelerometerConfigDao.h"
+#include "../../../accelerometer_data_models/src/AccelerometerConfigDao.h"
 
 typedef struct AccelerometerConfigurator AccelerometerConfigurator;
 

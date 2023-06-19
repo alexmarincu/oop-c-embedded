@@ -11,10 +11,7 @@
     :default_tasks:
         - release
 :release_build:
-    # windows:
-    :output: oopce.exe
-    # linux:
-    # :output: oopce.out
+    :output: accelerometer_data_models.a
 :environment:
     # windows:
     - :path:
@@ -29,8 +26,6 @@
     :support:
         - test/support
     :libraries: []
-    :include:
-        - ../utils/src/**
 :defines:
     :common: &common_defines []
     :test:
@@ -71,11 +66,11 @@
         :html_high_threshold: 90
 :libraries:
     :placement: :end
-    :flag: "${1}"
+    :flag: "-l${1}"
     :path_flag: "-L ${1}"
-    :system: [-lm]
+    :system: []
     :test: []
-    :release: [../utils/build/artifacts/release/utils.a, ../accelerometer_data_models/build/artifacts/release/accelerometer_data_models.a]
+    :release: []
 # :tools:
 #     :pre_test_fixture_execute:
 #         :executable: valgrind

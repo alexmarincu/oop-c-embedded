@@ -1,6 +1,6 @@
 #ifndef AccelerometerCtrl_h
 #define AccelerometerCtrl_h
-#include "../accelerometer_data_models/Acceleration3d.h"
+#include "../../../accelerometer_data_models/src/Acceleration3d.h"
 #include "../motion_detector/MotionDetector.h"
 
 typedef struct AccelerometerCtrl AccelerometerCtrl;

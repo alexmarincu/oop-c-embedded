@@ -1,7 +1,7 @@
 #ifndef AccelerometerConfigStorage_h
 #define AccelerometerConfigStorage_h
-#include "../accelerometer_data_models/AccelerometerConfig.h"
-#include "../accelerometer_data_models/AccelerometerConfigDao.h"
+#include "../../../accelerometer_data_models/src/AccelerometerConfig.h"
+#include "../../../accelerometer_data_models/src/AccelerometerConfigDao.h"
 
 typedef struct AccelerometerConfigStorage AccelerometerConfigStorage;
 

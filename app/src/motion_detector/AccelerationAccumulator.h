@@ -1,6 +1,6 @@
 #ifndef AccelerationAccumulator_h
 #define AccelerationAccumulator_h
-#include "../accelerometer_data_models/Acceleration3d.h"
+#include "../../../accelerometer_data_models/src/Acceleration3d.h"
 
 typedef struct AccelerationAccumulator AccelerationAccumulator;
 struct AccelerationAccumulator {

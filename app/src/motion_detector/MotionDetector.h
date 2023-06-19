@@ -1,6 +1,6 @@
 #ifndef MotionDetector_h
 #define MotionDetector_h
-#include "../accelerometer_data_models/Acceleration3d.h"
+#include "../../../accelerometer_data_models/src/Acceleration3d.h"
 
 typedef struct MotionDetector MotionDetector;
 
