@@ -2,7 +2,7 @@
 #define Observer_h
 
 typedef struct Observer Observer;
-typedef void (*Observer_onUpdateFun)(Observer const * const observer);
+typedef void (*Observer_onUpdateFun)(Observer * const observer);
 
 struct Observer {
     void * impl;

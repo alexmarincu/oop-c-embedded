@@ -7,13 +7,13 @@ Subject * Subject_init(Subject * const self, Observer ** const observers, uint32
     return self;
 }
 
-void Subject_registerObserver(Subject * self, Observer * observer) {
+void Subject_registerObserver(Subject * const self, Observer * const observer) {
     if (self->observersCount < self->observersMaxCount) {
         self->observers[self->observersCount++] = observer;
     }
 }
 
-void Subject_notifyObservers(Subject * self) {
+void Subject_notifyObservers(Subject * const self) {
     for (uint32_t i = 0; i < self->observersCount; ++i) {
         Observer * observer = self->observers[i];
         Observer_onUpdate(observer);

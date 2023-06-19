@@ -12,7 +12,7 @@ struct Subject {
 };
 
 Subject * Subject_init(Subject * const self, Observer ** const observers, uint32_t const observersMaxCount);
-void Subject_registerObserver(Subject * self, Observer * observer);
-void Subject_notifyObservers(Subject * self);
+void Subject_registerObserver(Subject * const self, Observer * const observer);
+void Subject_notifyObservers(Subject * const self);
 
 #endif // Subject_h
