@@ -66,9 +66,9 @@
         :html_high_threshold: 90
 :libraries:
     :placement: :end
-    :flag: "-l${1}"
+    :flag: "${1}"
     :path_flag: "-L ${1}"
-    :system: []
+    :system: [-lm]
     :test: []
     :release: []
 # :tools:

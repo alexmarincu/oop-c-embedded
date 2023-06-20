@@ -73,7 +73,7 @@
     :placement: :end
     :flag: "${1}"
     :path_flag: "-L ${1}"
-    :system: [-lm]
+    :system: []
     :test: []
     :release: [
         ../motion_detector/build/artifacts/release/motion_detector.a,
