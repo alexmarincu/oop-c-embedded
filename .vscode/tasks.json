@@ -405,7 +405,8 @@
                 "cwd": "${workspaceFolder}"
             },
             "presentation": {
-                "panel": "new"
+                "panel": "new",
+                "reveal": "silent"
             }
         },
         {
