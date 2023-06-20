@@ -7,9 +7,9 @@ void setUp(void) {}
 void tearDown(void) {}
 
 typedef struct {
-    AccelerometerConfigDao acDao;
     bool writeCalled;
     bool readCalled;
+    AccelerometerConfigDao acDao;
 } AccelerometerConfigDaoImpl;
 
 static void AccelerometerConfigDaoImpl_write(AccelerometerConfigDaoImpl * const self, AccelerometerConfig * const accelerometerConfig) {
