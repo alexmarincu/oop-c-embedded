@@ -9,7 +9,7 @@ Timer * Timer_init(Timer * const self) {
 }
 
 void Timer_start(Timer * const self, uint32_t const durationIn1ms) {
-    self->startTimeIn1ms = TimeSource_getCurrentTimeIn1ms();
+    self->startTimeIn1ms = TimeSource_getCurrentOpTimeIn1ms();
     self->durationIn1ms = durationIn1ms;
     self->isRunning = true;
 }
@@ -25,6 +25,6 @@ bool Timer_isRunning(Timer * const self) {
 bool Timer_isExpired(Timer * const self) {
     return (
         (self->isRunning == true) &&
-        ((TimeSource_getCurrentTimeIn1ms() - self->startTimeIn1ms) >= self->durationIn1ms)
+        ((TimeSource_getCurrentOpTimeIn1ms() - self->startTimeIn1ms) >= self->durationIn1ms)
     );
 }

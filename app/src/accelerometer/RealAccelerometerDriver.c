@@ -1,4 +1,5 @@
 #include "RealAccelerometerDriver.h"
+#include "AccelerometerCtrl.h"
 #include "AccelerometerDriver.h"
 #include <stdio.h>
 
@@ -11,10 +12,8 @@ RealAccelerometerDriver * RealAccelerometerDriver_getInstance(void) {
     return &self;
 }
 
-RealAccelerometerDriver * RealAccelerometerDriver_init(
-    RealAccelerometerDriver * const self, AccelerometerCtrl * const accelerometerCtrl
-) {
-    AccelerometerDriver_init((AccelerometerDriver *)self, accelerometerCtrl, (AccelerometerDriver_runFun)RealAccelerometerDriver_run);
+RealAccelerometerDriver * RealAccelerometerDriver_init(RealAccelerometerDriver * const self) {
+    AccelerometerDriver_init((AccelerometerDriver *)self, (AccelerometerDriver_runFun)RealAccelerometerDriver_run);
     return self;
 }
 
@@ -23,7 +22,6 @@ void RealAccelerometerDriver_run(RealAccelerometerDriver * const self) {
         printf("RealAccelerometerDriver_readData\n");
         self->accelerometerDriver.isDataAvailable = false;
         AccelerometerCtrl_onDataReceived(
-            self->accelerometerDriver.accelerometerCtrl,
             &(Acceleration3d){
                 .x = 1,
                 .y = 2,

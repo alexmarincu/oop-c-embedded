@@ -1,5 +1,6 @@
 #include "AccelerometerSimulatorDriver.h"
 #include "../../../accelerometer_data_models/src/Acceleration3d.h"
+#include "AccelerometerCtrl.h"
 #include "AccelerometerDriver.h"
 #include <stdio.h>
 
@@ -12,10 +13,8 @@ AccelerometerSimulatorDriver * AccelerometerSimulatorDriver_getInstance(void) {
     return &self;
 }
 
-AccelerometerSimulatorDriver * AccelerometerSimulatorDriver_init(
-    AccelerometerSimulatorDriver * const self, AccelerometerCtrl * const accelerometerCtrl
-) {
-    AccelerometerDriver_init((AccelerometerDriver *)self, accelerometerCtrl, (AccelerometerDriver_runFun)AccelerometerSimulatorDriver_run);
+AccelerometerSimulatorDriver * AccelerometerSimulatorDriver_init(AccelerometerSimulatorDriver * const self) {
+    AccelerometerDriver_init((AccelerometerDriver *)self, (AccelerometerDriver_runFun)AccelerometerSimulatorDriver_run);
     return self;
 }
 
@@ -24,7 +23,6 @@ void AccelerometerSimulatorDriver_run(AccelerometerSimulatorDriver * const self)
         printf("AccelerometerSimulatorDriver_readData\n");
         self->accelerometerDriver.isDataAvailable = false;
         AccelerometerCtrl_onDataReceived(
-            self->accelerometerDriver.accelerometerCtrl,
             &(Acceleration3d){
                 .x = 100,
                 .y = 200,

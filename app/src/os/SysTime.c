@@ -1,6 +1,6 @@
-#include "os_Time.h"
+#include "SysTime.h"
 #include <time.h>
 
-uint32_t os_Time_getCurrentTimeIn1ms(void) {
+uint32_t SysTime_getCurrentOpTimeIn1ms(void) {
     return (uint32_t)(clock() / (CLOCKS_PER_SEC / 1000));
 }

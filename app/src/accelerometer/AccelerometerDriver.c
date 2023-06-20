@@ -1,9 +1,8 @@
 #include "AccelerometerDriver.h"
 
 AccelerometerDriver * AccelerometerDriver_init(
-    AccelerometerDriver * const self, AccelerometerCtrl * const accelerometerCtrl, AccelerometerDriver_runFun const run
+    AccelerometerDriver * const self, AccelerometerDriver_runFun const run
 ) {
-    self->accelerometerCtrl = accelerometerCtrl;
     self->run = run;
     self->isDataAvailable = false;
     return self;

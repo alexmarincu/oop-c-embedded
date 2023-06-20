@@ -1,38 +1,34 @@
 #include "Os.h"
-#include "os_KeyHandler.h"
-#include "os_Scheduler.h"
+#include "KeyHandler.h"
+#include "Scheduler.h"
 #include <stdbool.h>
 #include <stdint.h>
 #include <stdio.h>
 
+typedef struct Os Os;
 struct Os {
-    os_KeyHandler * osKeyHandler;
-    os_Scheduler * osScheduler;
+    Scheduler * scheduler;
     bool shouldQuit;
     uint32_t last100msLoopOpTimeIn1ms;
 };
 
-Os * Os_getInstance(void) {
-    static Os self;
-    return &self;
+static Os self;
+
+void Os_init(void) {
+    KeyHandler_init();
+    self.scheduler = Scheduler_init(Scheduler_getInstance());
+    self.shouldQuit = false;
 }
 
-Os * Os_init(Os * const self) {
-    self->osKeyHandler = os_KeyHandler_init(os_KeyHandler_getInstance());
-    self->osScheduler = os_Scheduler_init(os_Scheduler_getInstance());
-    self->shouldQuit = false;
-    return self;
-}
-
-void Os_run(Os * const self) {
+void Os_run(void) {
     printf("Press 'q' to quit.\n");
-    while (!self->shouldQuit) {
-        os_KeyHandler_run(self->osKeyHandler);
-        os_Scheduler_run(self->osScheduler);
+    while (!self.shouldQuit) {
+        KeyHandler_run();
+        Scheduler_run(self.scheduler);
     }
     printf("Quitting...\n");
 }
 
-void Os_quit(Os * const self) {
-    self->shouldQuit = true;
+void Os_quit(void) {
+    self.shouldQuit = true;
 }

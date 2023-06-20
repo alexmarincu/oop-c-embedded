@@ -1,6 +1,6 @@
 #ifndef ButtonCtrl_h
 #define ButtonCtrl_h
-#include "../accelerometer_configurator/AccelerometerConfigurator.h"
+#include "../accelerometer/AccelerometerConfigurator.h"
 
 typedef struct ButtonCtrl ButtonCtrl;
 

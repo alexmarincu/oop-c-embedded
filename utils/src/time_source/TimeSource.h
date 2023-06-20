@@ -2,6 +2,6 @@
 #define TimeSource_h
 #include <stdint.h>
 
-uint32_t TimeSource_getCurrentTimeIn1ms(void);
+uint32_t TimeSource_getCurrentOpTimeIn1ms(void);
 
 #endif // TimeSource_h

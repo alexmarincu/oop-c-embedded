@@ -57,7 +57,7 @@ package accelerometer_data_storage {
     AccelerometerConfigStorage ..u[dotted]|> AccelerometerConfigDao
     AccelerometerConfigStorage --u> AccelerometerConfig
 }
-package accelerometer_driver {
+package accelerometer {
     abstract class AccelerometerDriver
     class RealAccelerometerDriver
     class AccelerometerSimulatorDriver
@@ -76,43 +76,43 @@ package accelerometer_driver {
     AccelerometerDriverProvider --u> AccelerometerSimulatorDriver
     AccelerometerDriverProvider --u> AccelerometerDriver
 }
-package button_driver {
+package button {
     class ButtonDriver
     ButtonDriver --u> ButtonCtrl
 }
 package os {
-    class os_Interrupts
-    class os_KeyHandler
-    class os_Time
-    class os_Task
-    class os_Scheduler
+    class Interrupts
+    class KeyHandler
+    class SysTime
+    class Task
+    class Scheduler
     class Os
-    Os -> os_KeyHandler
-    Os --u> os_Scheduler
-    os_KeyHandler -> Os
-    os_KeyHandler ..u[dotted]> os_Interrupts
-    os_Interrupts ..u[dotted]> ButtonDriver
-    os_Interrupts ..u[dotted]> AccelerometerDriver
-    os_Interrupts ..u[dotted]> RealAccelerometerDriver
-    os_Interrupts ..u[dotted]> AccelerometerSimulatorDriver
-    os_Scheduler --u> ButtonDriver
-    os_Scheduler --u> AccelerometerDriverProvider
-    os_Scheduler --u> MotionDetector
-    os_Scheduler --u> os_Task
-    os_Scheduler ..u[dotted]> AccelerometerConfigStorage
-    os_Scheduler ..u[dotted]> AccelerometerConfigurator
-    os_Scheduler ..u[dotted]> AccelerometerDriver
-    os_Scheduler ..u[dotted]> ButtonCtrl
-    os_Scheduler ..u[dotted]> os_Time
-    os_Scheduler ..u[dotted]> Timer
-    os_Task -> os_Time
-    os_Time ..u[dotted]|> TimeSource
+    Os -> KeyHandler
+    Os --u> Scheduler
+    KeyHandler -> Os
+    KeyHandler ..u[dotted]> Interrupts
+    Interrupts ..u[dotted]> ButtonDriver
+    Interrupts ..u[dotted]> AccelerometerDriver
+    Interrupts ..u[dotted]> RealAccelerometerDriver
+    Interrupts ..u[dotted]> AccelerometerSimulatorDriver
+    Scheduler --u> ButtonDriver
+    Scheduler --u> AccelerometerDriverProvider
+    Scheduler --u> MotionDetector
+    Scheduler --u> Task
+    Scheduler ..u[dotted]> AccelerometerConfigStorage
+    Scheduler ..u[dotted]> AccelerometerConfigurator
+    Scheduler ..u[dotted]> AccelerometerDriver
+    Scheduler ..u[dotted]> ButtonCtrl
+    Scheduler ..u[dotted]> SysTime
+    Scheduler ..u[dotted]> Timer
+    Task -> SysTime
+    SysTime ..u[dotted]|> TimeSource
 }
 accelerometer_data_models --u[hidden] utils
 motion_detector --u[hidden] accelerometer_data_models
 accelerometer_controller ---u[hidden] motion_detector
-accelerometer_driver --u[hidden] accelerometer_controller
-os ----u[hidden] accelerometer_driver
-os ----u[hidden] button_driver
+accelerometer --u[hidden] accelerometer_controller
+os ----u[hidden] accelerometer
+os ----u[hidden] button
 os ----u[hidden] accelerometer_data_storage
 ----
