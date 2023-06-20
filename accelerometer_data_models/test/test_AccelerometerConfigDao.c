@@ -21,7 +21,7 @@ AccelerometerConfig * AccelerometerConfigDaoImpl_read(AccelerometerConfigDaoImpl
     return accelerometerConfig;
 }
 
-void test_AccelerometerConfigDao_isEqual_should_check_if_self_is_equal_to_other(void) {
+void test_AccelerometerConfigDao_functions_should_call_implementor_functions(void) {
     AccelerometerConfigDaoImpl acDaoImpl = (AccelerometerConfigDaoImpl){ 0 };
     AccelerometerConfigDao_init(
         &acDaoImpl.acDao, &acDaoImpl,
