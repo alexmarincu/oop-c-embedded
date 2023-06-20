@@ -3,7 +3,7 @@
 
 struct ButtonDriver {
     ButtonCtrl * buttonCtrl;
-    bool isPressed;
+    bool volatile isPressed;
 };
 
 ButtonDriver * ButtonDriver_getInstance(void) {

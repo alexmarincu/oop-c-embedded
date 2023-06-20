@@ -9,7 +9,7 @@ typedef void (*AccelerometerDriver_runFun)(AccelerometerDriver * const self);
 struct AccelerometerDriver {
     AccelerometerCtrl * accelerometerCtrl;
     AccelerometerDriver_runFun run;
-    bool isDataAvailable;
+    bool volatile isDataAvailable;
 };
 
 AccelerometerDriver * AccelerometerDriver_init(
