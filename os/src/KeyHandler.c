@@ -1,21 +1,18 @@
 #include "KeyHandler.h"
 #include "Interrupts.h"
 #include "Os.h"
-#include "conioWrapper.h"
-
-void KeyHandler_init(void) {
-}
+#include "coniow.h"
 
 static void KeyHandler_onRKeyPress(void) {
-    Interrupts_realAccelerometerDataAvailable();
+    Interrupts_r();
 }
 
 static void KeyHandler_onSKeyPress(void) {
-    Interrupts_accelerometerSimulatorDataAvailable();
+    Interrupts_s();
 }
 
-static void KeyHandler_onTKeyPress(void) {
-    Interrupts_buttonPress();
+static void KeyHandler_onBKeyPress(void) {
+    Interrupts_b();
 }
 
 static void KeyHandler_onQKeyPress(void) {
@@ -34,9 +31,9 @@ void KeyHandler_run(void) {
             case 'S': {
                 KeyHandler_onSKeyPress();
             } break;
-            case 't':
-            case 'T': {
-                KeyHandler_onTKeyPress();
+            case 'b':
+            case 'B': {
+                KeyHandler_onBKeyPress();
             } break;
             case 'q':
             case 'Q': {

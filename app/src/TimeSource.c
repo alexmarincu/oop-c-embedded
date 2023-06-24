@@ -1,6 +1,6 @@
 #include "../../utils/src/time_source/TimeSource.h"
-#include "SysTime.h"
+#include "../../os/src/SysTime.h"
 
-uint32_t TimeSource_getCurrentOpTimeIn1ms(void) {
-    return SysTime_getCurrentOpTimeIn1ms();
+uint32_t TimeSource_getOpTimeIn1ms(void) {
+    return SysTime_getOpTimeIn1ms();
 }

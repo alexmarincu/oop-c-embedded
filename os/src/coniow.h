@@ -1,9 +1,9 @@
-#ifndef conioWrapper_h
-#define conioWrapper_h
+#ifndef coniow_h
+#define coniow_h
 #ifdef _WIN32
 #include <conio.h>
 #else
 int _kbhit(void);
 int _getch(void);
 #endif
-#endif // conioWrapper_h
+#endif // coniow_h

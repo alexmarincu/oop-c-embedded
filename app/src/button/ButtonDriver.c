@@ -1,29 +1,25 @@
 #include "ButtonDriver.h"
+#include "ButtonCtrl.h"
 #include <stdbool.h>
 
+typedef struct ButtonDriver ButtonDriver;
 struct ButtonDriver {
-    ButtonCtrl * buttonCtrl;
     bool volatile isPressed;
 };
 
-ButtonDriver * ButtonDriver_getInstance(void) {
-    static ButtonDriver self;
-    return &self;
+static ButtonDriver self;
+
+void ButtonDriver_init(void) {
+    self.isPressed = false;
 }
 
-ButtonDriver * ButtonDriver_init(ButtonDriver * const self, ButtonCtrl * const buttonCtrl) {
-    self->buttonCtrl = buttonCtrl;
-    self->isPressed = false;
-    return self;
+void ButtonDriver_buttonPressInt(void) {
+    self.isPressed = true;
 }
 
-void ButtonDriver_buttonPressInt(ButtonDriver * const self) {
-    self->isPressed = true;
-}
-
-void ButtonDriver_run(ButtonDriver * const self) {
-    if (self->isPressed) {
-        self->isPressed = false;
-        ButtonCtrl_onButtonPress(self->buttonCtrl);
+void ButtonDriver_run(void) {
+    if (self.isPressed) {
+        self.isPressed = false;
+        ButtonCtrl_onButtonPress();
     }
 }

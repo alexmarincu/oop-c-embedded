@@ -11,21 +11,20 @@ struct MotionDetector {
     AccelerationAccumulator accelerationAccumulator;
     AccelerationMagnitudeTracker accelerationMagnitudeTracker;
     Timer averageAccelerationCalculationTimer;
-    uint16_t const averageAccelerationCalculationTimerDurationIn1ms;
 };
 
-static MotionDetector self = { .averageAccelerationCalculationTimerDurationIn1ms = 1000 };
+static MotionDetector self;
 
 void MotionDetector_init(void) {
     self.isMoving = false;
     self.accelerationAccumulator = (AccelerationAccumulator){ 0 };
     self.accelerationMagnitudeTracker = (AccelerationMagnitudeTracker){ 0 };
-    Timer_start(Timer_init(&self.averageAccelerationCalculationTimer), self.averageAccelerationCalculationTimerDurationIn1ms);
+    Timer_start(Timer_init(&self.averageAccelerationCalculationTimer, 1000));
 }
 
 void MotionDetector_run(void) {
     if (Timer_isExpired(&self.averageAccelerationCalculationTimer)) {
-        Timer_start(&self.averageAccelerationCalculationTimer, self.averageAccelerationCalculationTimerDurationIn1ms);
+        Timer_start(&self.averageAccelerationCalculationTimer);
         uint16_t const accelerationMagnitudeIn098mg =
             Acceleration3d_magnitude(AccelerationAccumulator_calculateAverage(&self.accelerationAccumulator, &(Acceleration3d){ 0 }));
         AccelerationAccumulator_reset(&self.accelerationAccumulator);

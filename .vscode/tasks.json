@@ -20,10 +20,7 @@
         },
         {
             "label": ":: Build",
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
+            "group": "build",
             "dependsOn": [
                 "module: Build",
                 "Merge compile commands"
@@ -35,7 +32,10 @@
         },
         {
             "label": ":: Build all",
-            "group": "build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
             "dependsOn": [
                 "all: Build",
                 "Merge compile commands"
@@ -56,6 +56,8 @@
                     ";",
                     "cd ../motion_detector; ceedling release",
                     ";",
+                    "cd ../os; ceedling release",
+                    ";",
                     "cd ../app; ceedling release",
                 ],
             },
@@ -66,6 +68,8 @@
                     "cd ../accelerometer_data_models & ceedling release",
                     "&",
                     "cd ../motion_detector & ceedling release",
+                    "&",
+                    "cd ../os & ceedling release",
                     "&",
                     "cd ../app & ceedling release",
                 ],
@@ -125,6 +129,8 @@
                     ";",
                     "cd ../motion_detector; ceedling clobber",
                     ";",
+                    "cd ../os; ceedling clobber",
+                    ";",
                     "cd ../app; ceedling clobber",
                 ],
             },
@@ -135,6 +141,8 @@
                     "cd ../accelerometer_data_models & ceedling clobber",
                     "&",
                     "cd ../motion_detector & ceedling clobber",
+                    "&",
+                    "cd ../os & ceedling clobber",
                     "&",
                     "cd ../app & ceedling clobber",
                 ],
@@ -196,6 +204,8 @@
                     ";",
                     "cd ../motion_detector; ceedling clobber release",
                     ";",
+                    "cd ../os; ceedling clobber release",
+                    ";",
                     "cd ../app; ceedling clobber release",
                 ],
             },
@@ -206,6 +216,8 @@
                     "cd ../accelerometer_data_models & ceedling clobber release",
                     "&",
                     "cd ../motion_detector & ceedling clobber release",
+                    "&",
+                    "cd ../os & ceedling clobber release",
                     "&",
                     "cd ../app & ceedling clobber release",
                 ],
@@ -234,10 +246,7 @@
         },
         {
             "label": ":: Test",
-            "group": {
-                "kind": "test",
-                "isDefault": true
-            },
+            "group": "test",
             "dependsOn": [
                 "module: Test",
                 "Merge compile commands"
@@ -249,7 +258,10 @@
         },
         {
             "label": ":: Test all",
-            "group": "test",
+            "group": {
+                "kind": "test",
+                "isDefault": true
+            },
             "dependsOn": [
                 "all: Test",
                 "Merge compile commands"
@@ -270,6 +282,8 @@
                     ";",
                     "cd ../motion_detector; ceedling test:all",
                     ";",
+                    "cd ../os; ceedling test:all",
+                    ";",
                     "cd ../app; ceedling test:all",
                 ],
             },
@@ -280,6 +294,8 @@
                     "cd ../accelerometer_data_models & ceedling test:all",
                     "&",
                     "cd ../motion_detector & ceedling test:all",
+                    "&",
+                    "cd ../os & ceedling test:all",
                     "&",
                     "cd ../app & ceedling test:all",
                 ],
@@ -341,6 +357,8 @@
                     ";",
                     "cd ../motion_detector; ceedling gcov:all utils:gcov",
                     ";",
+                    "cd ../os; ceedling gcov:all utils:gcov",
+                    ";",
                     "cd ../app; ceedling gcov:all utils:gcov",
                 ],
             },
@@ -351,6 +369,8 @@
                     "cd ../accelerometer_data_models & ceedling gcov:all utils:gcov",
                     "&",
                     "cd ../motion_detector & ceedling gcov:all utils:gcov",
+                    "&",
+                    "cd ../os & ceedling gcov:all utils:gcov",
                     "&",
                     "cd ../app & ceedling gcov:all utils:gcov",
                 ],
@@ -386,6 +406,7 @@
                     "utils/build/artifacts/compile_commands.json",
                     "accelerometer_data_models/build/artifacts/compile_commands.json",
                     "motion_detector/build/artifacts/compile_commands.json",
+                    "os/build/artifacts/compile_commands.json",
                     "app/build/artifacts/compile_commands.json",
                     "| out-file -encoding utf8 compile_commands.json"
                 ]
@@ -396,6 +417,7 @@
                     "utils/build/artifacts/compile_commands.json",
                     "accelerometer_data_models/build/artifacts/compile_commands.json",
                     "motion_detector/build/artifacts/compile_commands.json",
+                    "os/build/artifacts/compile_commands.json",
                     "app/build/artifacts/compile_commands.json",
                     "> compile_commands.json"
                 ]
@@ -449,10 +471,11 @@
             "default": "app",
             "type": "pickString",
             "options": [
-                "app",
                 "utils",
                 "accelerometer_data_models",
-                "motion_detector"
+                "motion_detector",
+                "os",
+                "app",
             ]
         }
     ]

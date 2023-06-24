@@ -1,23 +1,18 @@
 #include "AccelerometerConfigurator.h"
 
+typedef struct AccelerometerConfigurator AccelerometerConfigurator;
 struct AccelerometerConfigurator {
     AccelerometerConfigDao * accelerometerConfigDao;
 };
 
-AccelerometerConfigurator * AccelerometerConfigurator_getInstance(void) {
-    static AccelerometerConfigurator self;
-    return &self;
+static AccelerometerConfigurator self;
+
+void AccelerometerConfigurator_init(AccelerometerConfigDao * const accelerometerConfigDao) {
+    self.accelerometerConfigDao = accelerometerConfigDao;
 }
 
-AccelerometerConfigurator * AccelerometerConfigurator_init(
-    AccelerometerConfigurator * const self, AccelerometerConfigDao * const accelerometerConfigDao
-) {
-    self->accelerometerConfigDao = accelerometerConfigDao;
-    return self;
-}
-
-void AccelerometerConfigurator_toggleAccelerometerDriver(AccelerometerConfigurator * const self) {
-    AccelerometerConfig * accelerometerConfig = AccelerometerConfigDao_read(self->accelerometerConfigDao, &(AccelerometerConfig){ 0 });
+void AccelerometerConfigurator_toggleAccelerometerDriver(void) {
+    AccelerometerConfig * accelerometerConfig = AccelerometerConfigDao_read(self.accelerometerConfigDao, &(AccelerometerConfig){ 0 });
     accelerometerConfig->isSimulatorEnabled = !accelerometerConfig->isSimulatorEnabled;
-    AccelerometerConfigDao_write(self->accelerometerConfigDao, accelerometerConfig);
+    AccelerometerConfigDao_write(self.accelerometerConfigDao, accelerometerConfig);
 }
