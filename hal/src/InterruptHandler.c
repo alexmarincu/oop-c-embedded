@@ -1,6 +1,5 @@
 #include "InterruptHandler.h"
 #include "coniow.h"
-#include <stdlib.h>
 
 typedef struct InterruptHandler InterruptHandler;
 struct InterruptHandler {
