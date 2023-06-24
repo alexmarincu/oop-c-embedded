@@ -3,19 +3,17 @@
 #include "../../os/src/Os.h"
 #include "../../os/src/Scheduler.h"
 #include "../../os/src/Task.h"
+#include "../../push_button/src/PushButtonCtrl.h"
+#include "../../push_button/src/PushButtonDriver.h"
 #include "accelerometer/AccelerometerConfigurator.h"
 #include "accelerometer/AccelerometerDriverProvider.h"
 #include "accelerometer/AccelerometerSimulatorDriver.h"
 #include "accelerometer/RealAccelerometerDriver.h"
 #include "accelerometer_data_storage/AccelerometerConfigStorage.h"
-#include "button/ButtonDriver.h"
 
 static void runAt10ms(void) {
     // for demo purposes we simulate the interrupts
     InterruptHandler_run();
-}
-
-static void runAt20ms(void) {
 }
 
 static void runAt50ms(void) {
@@ -24,7 +22,7 @@ static void runAt50ms(void) {
 }
 
 static void runAt100ms(void) {
-    ButtonDriver_run();
+    PushButtonDriver_run();
 }
 
 void realAccelerometerDataAvailableInt(void) {
@@ -35,12 +33,15 @@ void accelerometerSimulatorDataAvailableInt(void) {
     AccelerometerDriver_dataAvailableInt((AccelerometerDriver *)AccelerometerSimulatorDriver_getInstance());
 }
 
-void buttonPressInt(void) {
-    ButtonDriver_buttonPressInt();
+void pushButtonPressInt(void) {
+    PushButtonDriver_pressInt();
+}
+
+void onPushButtonPress() {
+    AccelerometerConfigurator_toggleAccelerometerDriver();
 }
 
 int main(void) {
-    ButtonDriver_init();
     AccelerometerConfigurator_init(
         AccelerometerConfigStorage_getAccelerometerConfigDao(
             AccelerometerConfigStorage_init(AccelerometerConfigStorage_getInstance())
@@ -50,15 +51,15 @@ int main(void) {
     AccelerometerSimulatorDriver_init(AccelerometerSimulatorDriver_getInstance());
     AccelerometerDriverProvider_init();
     MotionDetector_init();
-    Task tasks[4];
+    Task tasks[3];
     Task_init(&tasks[0], 10, runAt10ms);
-    Task_init(&tasks[1], 20, runAt20ms);
-    Task_init(&tasks[2], 50, runAt50ms);
-    Task_init(&tasks[3], 100, runAt100ms);
-    Scheduler_setTasks(tasks, 4);
-    InterruptHandler_registerRealAccelerometerDataAvailableIntCallback(realAccelerometerDataAvailableInt);
-    InterruptHandler_registerAccelerometerSimulatorDataAvailableIntCallback(accelerometerSimulatorDataAvailableInt);
-    InterruptHandler_registerButtonPressIntCallback(buttonPressInt);
+    Task_init(&tasks[1], 50, runAt50ms);
+    Task_init(&tasks[2], 100, runAt100ms);
+    Scheduler_setTasks(tasks, 3);
+    InterruptHandler_registerRealAccelerometerDataAvailableIntCbk(realAccelerometerDataAvailableInt);
+    InterruptHandler_registerAccelerometerSimulatorDataAvailableIntCbk(accelerometerSimulatorDataAvailableInt);
+    InterruptHandler_registerPushButtonPressIntCbk(pushButtonPressInt);
+    PushButtonCtrl_registerOnPress(onPushButtonPress);
     Os_run();
     return 0;
 }

@@ -3,33 +3,35 @@
 
 typedef struct InterruptHandler InterruptHandler;
 struct InterruptHandler {
-    InterruptHandler_callbackFun realAccelerometerDataAvailableInt;
-    InterruptHandler_callbackFun accelerometerSimulatorDataAvailableInt;
-    InterruptHandler_callbackFun buttonPressInt;
+    InterruptHandler_cbkFun realAccelerometerDataAvailableIntCbk;
+    InterruptHandler_cbkFun accelerometerSimulatorDataAvailableIntCbk;
+    InterruptHandler_cbkFun pushButtonPressIntCbk;
 };
 
 static InterruptHandler self = {
-    .realAccelerometerDataAvailableInt = NULL,
-    .accelerometerSimulatorDataAvailableInt = NULL,
-    .buttonPressInt = NULL
+    .realAccelerometerDataAvailableIntCbk = NULL,
+    .accelerometerSimulatorDataAvailableIntCbk = NULL,
+    .pushButtonPressIntCbk = NULL
 };
 
-static void InterruptHandler_callInt(InterruptHandler_callbackFun callback) {
-    if (callback) {
-        callback();
+static void InterruptHandler_cbkCall(InterruptHandler_cbkFun cbk) {
+    if (cbk) {
+        cbk();
     }
 }
 
-void InterruptHandler_registerRealAccelerometerDataAvailableIntCallback(InterruptHandler_callbackFun const callback) {
-    self.realAccelerometerDataAvailableInt = callback;
+void InterruptHandler_registerRealAccelerometerDataAvailableIntCbk(InterruptHandler_cbkFun const realAccelerometerDataAvailableIntCbk) {
+    self.realAccelerometerDataAvailableIntCbk = realAccelerometerDataAvailableIntCbk;
 }
 
-void InterruptHandler_registerAccelerometerSimulatorDataAvailableIntCallback(InterruptHandler_callbackFun const callback) {
-    self.accelerometerSimulatorDataAvailableInt = callback;
+void InterruptHandler_registerAccelerometerSimulatorDataAvailableIntCbk(
+    InterruptHandler_cbkFun const accelerometerSimulatorDataAvailableIntCbk
+) {
+    self.accelerometerSimulatorDataAvailableIntCbk = accelerometerSimulatorDataAvailableIntCbk;
 }
 
-void InterruptHandler_registerButtonPressIntCallback(InterruptHandler_callbackFun const callback) {
-    self.buttonPressInt = callback;
+void InterruptHandler_registerPushButtonPressIntCbk(InterruptHandler_cbkFun const pushButtonPressIntCbk) {
+    self.pushButtonPressIntCbk = pushButtonPressIntCbk;
 }
 
 void InterruptHandler_run(void) {
@@ -38,15 +40,15 @@ void InterruptHandler_run(void) {
         switch (key) {
             case 'r':
             case 'R': {
-                InterruptHandler_callInt(self.realAccelerometerDataAvailableInt);
+                InterruptHandler_cbkCall(self.realAccelerometerDataAvailableIntCbk);
             } break;
             case 's':
             case 'S': {
-                InterruptHandler_callInt(self.accelerometerSimulatorDataAvailableInt);
+                InterruptHandler_cbkCall(self.accelerometerSimulatorDataAvailableIntCbk);
             } break;
             case 'b':
             case 'B': {
-                InterruptHandler_callInt(self.buttonPressInt);
+                InterruptHandler_cbkCall(self.pushButtonPressIntCbk);
             } break;
             default: {
             } break;

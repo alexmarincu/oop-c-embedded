@@ -47,8 +47,8 @@ package accelerometer_controller {
     AccelerometerCtrl --u> MotionDetector
 }
 package button_controller {
-    class ButtonCtrl
-    ButtonCtrl -> AccelerometerConfigurator
+    class PushButtonCtrl
+    PushButtonCtrl -> AccelerometerConfigurator
 }
 package accelerometer_data_storage {
     class AccelerometerConfigStorage
@@ -77,8 +77,8 @@ package accelerometer {
     AccelerometerDriverProvider --u> AccelerometerDriver
 }
 package button {
-    class ButtonDriver
-    ButtonDriver --u> ButtonCtrl
+    class PushButtonDriver
+    PushButtonDriver --u> PushButtonCtrl
 }
 package os {
     class InterruptHandler
@@ -91,18 +91,18 @@ package os {
     Os --u> Scheduler
     Hal -> Os
     Hal ..u[dotted]> InterruptHandler
-    InterruptHandler ..u[dotted]> ButtonDriver
+    InterruptHandler ..u[dotted]> PushButtonDriver
     InterruptHandler ..u[dotted]> AccelerometerDriver
     InterruptHandler ..u[dotted]> RealAccelerometerDriver
     InterruptHandler ..u[dotted]> AccelerometerSimulatorDriver
-    Scheduler --u> ButtonDriver
+    Scheduler --u> PushButtonDriver
     Scheduler --u> AccelerometerDriverProvider
     Scheduler --u> MotionDetector
     Scheduler --u> Task
     Scheduler ..u[dotted]> AccelerometerConfigStorage
     Scheduler ..u[dotted]> AccelerometerConfigurator
     Scheduler ..u[dotted]> AccelerometerDriver
-    Scheduler ..u[dotted]> ButtonCtrl
+    Scheduler ..u[dotted]> PushButtonCtrl
     Scheduler ..u[dotted]> SysTime
     Scheduler ..u[dotted]> Timer
     Task -> SysTime
