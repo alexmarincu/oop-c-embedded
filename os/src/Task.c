@@ -9,12 +9,14 @@ Task * Task_init(Task * const self, uint32_t const repetitionRateIn1ms, Task_ope
     return self;
 }
 
-bool Task_shouldRun(Task * const self) {
+static bool Task_shouldRun(Task * const self) {
     uint32_t const elapsedTimeIn1ms = SysTime_getOpTimeIn1ms() - self->startTimeAtLastRunIn1ms;
     return (elapsedTimeIn1ms >= self->repetitionRateIn1ms);
 }
 
 void Task_run(Task * const self) {
-    self->startTimeAtLastRunIn1ms = SysTime_getOpTimeIn1ms();
-    self->operation();
+    if (Task_shouldRun(self)) {
+        self->startTimeAtLastRunIn1ms = SysTime_getOpTimeIn1ms();
+        self->operation();
+    }
 }

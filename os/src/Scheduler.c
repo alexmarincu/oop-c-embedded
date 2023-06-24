@@ -16,9 +16,6 @@ void Scheduler_init(Task * const tasks, uint8_t const count) {
 
 void Scheduler_run(void) {
     for (uint8_t i = 0; i < self.count; i++) {
-        Task * task = &self.tasks[i];
-        if (Task_shouldRun(task)) {
-            Task_run(task);
-        }
+        Task_run(&self.tasks[i]);
     }
 }
