@@ -1,6 +1,7 @@
+#include "../../hal/src/InterruptHandler.h"
 #include "../../motion_detector/src/MotionDetector.h"
-#include "../../os/src/Interrupts.h"
 #include "../../os/src/Os.h"
+#include "../../os/src/Scheduler.h"
 #include "../../os/src/Task.h"
 #include "accelerometer/AccelerometerConfigurator.h"
 #include "accelerometer/AccelerometerDriverProvider.h"
@@ -10,6 +11,8 @@
 #include "button/ButtonDriver.h"
 
 static void runAt10ms(void) {
+    // for demo purposes we simulate the interrupts
+    InterruptHandler_run();
 }
 
 static void runAt20ms(void) {
@@ -52,10 +55,10 @@ int main(void) {
     Task_init(&tasks[1], 20, runAt20ms);
     Task_init(&tasks[2], 50, runAt50ms);
     Task_init(&tasks[3], 100, runAt100ms);
-    Os_init(tasks, 4);
-    Interrupts_registerRCallback(realAccelerometerDataAvailableInt);
-    Interrupts_registerSCallback(accelerometerSimulatorDataAvailableInt);
-    Interrupts_registerBCallback(buttonPressInt);
+    Scheduler_setTasks(tasks, 4);
+    InterruptHandler_registerRealAccelerometerDataAvailableIntCallback(realAccelerometerDataAvailableInt);
+    InterruptHandler_registerAccelerometerSimulatorDataAvailableIntCallback(accelerometerSimulatorDataAvailableInt);
+    InterruptHandler_registerButtonPressIntCallback(buttonPressInt);
     Os_run();
     return 0;
 }

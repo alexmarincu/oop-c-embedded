@@ -11,10 +11,7 @@
     :default_tasks:
         - release
 :release_build:
-    # windows:
-    :output: oopce.exe
-    # linux:
-    # :output: oopce.out
+    :output: hal.a
 :environment:
     # windows:
     - :path:
@@ -29,8 +26,6 @@
     :support:
         - test/support
     :libraries: []
-    :include:
-        - ../utils/src/**
 :defines:
     :common: &common_defines []
     :test:
@@ -75,13 +70,7 @@
     :path_flag: "-L ${1}"
     :system: []
     :test: []
-    :release: [
-        ../os/build/artifacts/release/os.a,
-        ../hal/build/artifacts/release/hal.a,
-        ../motion_detector/build/artifacts/release/motion_detector.a,
-        ../utils/build/artifacts/release/utils.a,
-        ../accelerometer_data_models/build/artifacts/release/accelerometer_data_models.a
-    ]
+    :release: []
 # :tools:
 #     :pre_test_fixture_execute:
 #         :executable: valgrind

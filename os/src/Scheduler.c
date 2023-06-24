@@ -7,9 +7,12 @@ struct Scheduler {
     uint8_t count;
 };
 
-static Scheduler self;
+static Scheduler self = {
+    .tasks = NULL,
+    .count = 0
+};
 
-void Scheduler_init(Task * const tasks, uint8_t const count) {
+void Scheduler_setTasks(Task * const tasks, uint8_t const count) {
     self.tasks = tasks;
     self.count = count;
 }

@@ -81,20 +81,20 @@ package button {
     ButtonDriver --u> ButtonCtrl
 }
 package os {
-    class Interrupts
-    class KeyHandler
+    class InterruptHandler
+    class Hal
     class SysTime
     class Task
     class Scheduler
     class Os
-    Os -> KeyHandler
+    Os -> Hal
     Os --u> Scheduler
-    KeyHandler -> Os
-    KeyHandler ..u[dotted]> Interrupts
-    Interrupts ..u[dotted]> ButtonDriver
-    Interrupts ..u[dotted]> AccelerometerDriver
-    Interrupts ..u[dotted]> RealAccelerometerDriver
-    Interrupts ..u[dotted]> AccelerometerSimulatorDriver
+    Hal -> Os
+    Hal ..u[dotted]> InterruptHandler
+    InterruptHandler ..u[dotted]> ButtonDriver
+    InterruptHandler ..u[dotted]> AccelerometerDriver
+    InterruptHandler ..u[dotted]> RealAccelerometerDriver
+    InterruptHandler ..u[dotted]> AccelerometerSimulatorDriver
     Scheduler --u> ButtonDriver
     Scheduler --u> AccelerometerDriverProvider
     Scheduler --u> MotionDetector

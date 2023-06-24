@@ -1,0 +1,11 @@
+#ifndef InterruptHandler_h
+#define InterruptHandler_h
+
+typedef void (*InterruptHandler_callbackFun)(void);
+
+void InterruptHandler_run(void);
+void InterruptHandler_registerRealAccelerometerDataAvailableIntCallback(InterruptHandler_callbackFun const callback);
+void InterruptHandler_registerAccelerometerSimulatorDataAvailableIntCallback(InterruptHandler_callbackFun const callback);
+void InterruptHandler_registerButtonPressIntCallback(InterruptHandler_callbackFun const callback);
+
+#endif // InterruptHandler_h
