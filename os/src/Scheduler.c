@@ -1,5 +1,6 @@
 #include "Scheduler.h"
 #include "SysTime.h"
+#include <stddef.h>
 
 typedef struct Scheduler Scheduler;
 struct Scheduler {
@@ -17,8 +18,8 @@ void Scheduler_setTasks(Task * const tasks, uint8_t const count) {
     self.count = count;
 }
 
-void Scheduler_run(void) {
+void Scheduler_main(void) {
     for (uint8_t i = 0; i < self.count; i++) {
-        Task_run(&self.tasks[i]);
+        Task_main(&self.tasks[i]);
     }
 }

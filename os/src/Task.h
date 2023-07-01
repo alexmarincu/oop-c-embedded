@@ -12,6 +12,6 @@ struct Task {
 };
 
 Task * Task_init(Task * const self, uint32_t const repetitionRateIn1ms, Task_operationFun const operation);
-void Task_run(Task * const self);
+void Task_main(Task * const self);
 
 #endif // Task_h

@@ -15,7 +15,7 @@ void PushButtonDriver_pressInt(void) {
     self.isPressed = true;
 }
 
-void PushButtonDriver_run(void) {
+void PushButtonDriver_main(void) {
     if (self.isPressed) {
         self.isPressed = false;
         // Perform some processing for debounce

@@ -13,11 +13,11 @@ RealAccelerometerDriver * RealAccelerometerDriver_getInstance(void) {
 }
 
 RealAccelerometerDriver * RealAccelerometerDriver_init(RealAccelerometerDriver * const self) {
-    AccelerometerDriver_init((AccelerometerDriver *)self, (AccelerometerDriver_runFun)RealAccelerometerDriver_run);
+    AccelerometerDriver_init((AccelerometerDriver *)self, (AccelerometerDriver_mainFun)RealAccelerometerDriver_main);
     return self;
 }
 
-void RealAccelerometerDriver_run(RealAccelerometerDriver * const self) {
+void RealAccelerometerDriver_main(RealAccelerometerDriver * const self) {
     if (self->accelerometerDriver.isDataAvailable) {
         printf("RealAccelerometerDriver_readData\n");
         self->accelerometerDriver.isDataAvailable = false;

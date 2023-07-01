@@ -22,7 +22,7 @@ void MotionDetector_init(void) {
     Timer_start(Timer_init(&self.averageAccelerationCalculationTimer, 1000));
 }
 
-void MotionDetector_run(void) {
+void MotionDetector_main(void) {
     if (Timer_isExpired(&self.averageAccelerationCalculationTimer)) {
         Timer_start(&self.averageAccelerationCalculationTimer);
         uint16_t const accelerationMagnitudeIn098mg =

@@ -3,17 +3,17 @@
 #include <stdbool.h>
 
 typedef struct AccelerometerDriver AccelerometerDriver;
-typedef void (*AccelerometerDriver_runFun)(AccelerometerDriver * const self);
+typedef void (*AccelerometerDriver_mainFun)(AccelerometerDriver * const self);
 
 struct AccelerometerDriver {
-    AccelerometerDriver_runFun run;
+    AccelerometerDriver_mainFun main;
     bool volatile isDataAvailable;
 };
 
 AccelerometerDriver * AccelerometerDriver_init(
-    AccelerometerDriver * const self, AccelerometerDriver_runFun const run
+    AccelerometerDriver * const self, AccelerometerDriver_mainFun const main
 );
 void AccelerometerDriver_dataAvailableInt(AccelerometerDriver * const self);
-void AccelerometerDriver_run(AccelerometerDriver * const self);
+void AccelerometerDriver_main(AccelerometerDriver * const self);
 
 #endif // AccelerometerDriver_h

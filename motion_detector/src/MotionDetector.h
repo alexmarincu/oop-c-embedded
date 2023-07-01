@@ -6,6 +6,6 @@ typedef struct MotionDetector MotionDetector;
 
 void MotionDetector_init(void);
 void MotionDetector_processAcceleration3d(Acceleration3d * const acceleration3dIn098mg);
-void MotionDetector_run(void);
+void MotionDetector_main(void);
 
 #endif // MotionDetector_h

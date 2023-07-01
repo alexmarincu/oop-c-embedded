@@ -3,8 +3,8 @@
 #include <stdbool.h>
 #include <stdint.h>
 
-void Os_run(void) {
+void Os_main(void) {
     while (1) {
-        Scheduler_run();
+        Scheduler_main();
     }
 }

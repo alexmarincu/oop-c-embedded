@@ -14,11 +14,11 @@ AccelerometerSimulatorDriver * AccelerometerSimulatorDriver_getInstance(void) {
 }
 
 AccelerometerSimulatorDriver * AccelerometerSimulatorDriver_init(AccelerometerSimulatorDriver * const self) {
-    AccelerometerDriver_init((AccelerometerDriver *)self, (AccelerometerDriver_runFun)AccelerometerSimulatorDriver_run);
+    AccelerometerDriver_init((AccelerometerDriver *)self, (AccelerometerDriver_mainFun)AccelerometerSimulatorDriver_main);
     return self;
 }
 
-void AccelerometerSimulatorDriver_run(AccelerometerSimulatorDriver * const self) {
+void AccelerometerSimulatorDriver_main(AccelerometerSimulatorDriver * const self) {
     if (self->accelerometerDriver.isDataAvailable) {
         printf("AccelerometerSimulatorDriver_readData\n");
         self->accelerometerDriver.isDataAvailable = false;

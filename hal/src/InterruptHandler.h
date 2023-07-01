@@ -3,7 +3,7 @@
 
 typedef void (*InterruptHandler_cbkFun)(void);
 
-void InterruptHandler_run(void);
+void InterruptHandler_main(void);
 void InterruptHandler_registerRealAccelerometerDataAvailableIntCbk(InterruptHandler_cbkFun const realAccelerometerDataAvailableIntCbk);
 void InterruptHandler_registerAccelerometerSimulatorDataAvailableIntCbk(
     InterruptHandler_cbkFun const accelerometerSimulatorDataAvailableIntCbk

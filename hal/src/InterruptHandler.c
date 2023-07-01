@@ -1,5 +1,6 @@
 #include "InterruptHandler.h"
 #include "coniow.h"
+#include <stddef.h>
 
 typedef struct InterruptHandler InterruptHandler;
 struct InterruptHandler {
@@ -34,7 +35,7 @@ void InterruptHandler_registerPushButtonPressIntCbk(InterruptHandler_cbkFun cons
     self.pushButtonPressIntCbk = pushButtonPressIntCbk;
 }
 
-void InterruptHandler_run(void) {
+void InterruptHandler_main(void) {
     if (_kbhit()) {
         int key = _getch();
         switch (key) {

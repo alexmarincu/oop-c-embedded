@@ -5,6 +5,6 @@ typedef struct AccelerometerSimulatorDriver AccelerometerSimulatorDriver;
 
 AccelerometerSimulatorDriver * AccelerometerSimulatorDriver_getInstance(void);
 AccelerometerSimulatorDriver * AccelerometerSimulatorDriver_init(AccelerometerSimulatorDriver * const self);
-void AccelerometerSimulatorDriver_run(AccelerometerSimulatorDriver * const self);
+void AccelerometerSimulatorDriver_main(AccelerometerSimulatorDriver * const self);
 
 #endif // AccelerometerSimulatorDriver_h

@@ -14,7 +14,7 @@ static bool Task_shouldRun(Task * const self) {
     return (elapsedTimeIn1ms >= self->repetitionRateIn1ms);
 }
 
-void Task_run(Task * const self) {
+void Task_main(Task * const self) {
     if (Task_shouldRun(self)) {
         self->startTimeAtLastRunIn1ms = SysTime_getOpTimeIn1ms();
         self->operation();

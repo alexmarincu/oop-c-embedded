@@ -11,18 +11,18 @@
 #include "accelerometer/RealAccelerometerDriver.h"
 #include "accelerometer_data_storage/AccelerometerConfigStorage.h"
 
-static void runAt10ms(void) {
+static void taskAt10ms(void) {
     // for demo purposes we simulate the interrupts
-    InterruptHandler_run();
+    InterruptHandler_main();
 }
 
-static void runAt50ms(void) {
-    AccelerometerDriver_run(AccelerometerDriverProvider_getCurrentAccelerometerDriver());
-    MotionDetector_run();
+static void taskAt50ms(void) {
+    AccelerometerDriver_main(AccelerometerDriverProvider_getCurrentAccelerometerDriver());
+    MotionDetector_main();
 }
 
-static void runAt100ms(void) {
-    PushButtonDriver_run();
+static void taskAt100ms(void) {
+    PushButtonDriver_main();
 }
 
 void realAccelerometerDataAvailableInt(void) {
@@ -52,14 +52,14 @@ int main(void) {
     AccelerometerDriverProvider_init();
     MotionDetector_init();
     Task tasks[3];
-    Task_init(&tasks[0], 10, runAt10ms);
-    Task_init(&tasks[1], 50, runAt50ms);
-    Task_init(&tasks[2], 100, runAt100ms);
+    Task_init(&tasks[0], 10, taskAt10ms);
+    Task_init(&tasks[1], 50, taskAt50ms);
+    Task_init(&tasks[2], 100, taskAt100ms);
     Scheduler_setTasks(tasks, 3);
     InterruptHandler_registerRealAccelerometerDataAvailableIntCbk(realAccelerometerDataAvailableInt);
     InterruptHandler_registerAccelerometerSimulatorDataAvailableIntCbk(accelerometerSimulatorDataAvailableInt);
     InterruptHandler_registerPushButtonPressIntCbk(pushButtonPressInt);
     PushButtonCtrl_registerOnPress(onPushButtonPress);
-    Os_run();
+    Os_main();
     return 0;
 }
