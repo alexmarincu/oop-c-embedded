@@ -1,0 +1,270 @@
+= SOLID principles
+:sectnums:
+:imagesdir: media
+:source-highlighter: rouge
+:rouge-style: monokai
+:pdf-theme: theme.yml
+
+== Overview of SOLID Principles
+Embedded systems play a crucial role in various industries, from automotive to healthcare. However, developing reliable and maintainable embedded software can be challenging. That's where SOLID principles come in. We will delve into the five SOLID principles and explore their application in embedded systems development.
+
+The SOLID principles are a set of guidelines that help developers design software that is easy to maintain, scalable, and flexible.
+
+The five SOLID principles are:
+
+* Single Responsibility Principle (SRP)
+* Open-Closed Principle (OCP)
+* Liskov Substitution Principle (LSP)
+* Interface Segregation Principle (ISP)
+* Dependency Inversion Principle (DIP)
+
+Understanding these principles is essential for building robust embedded systems. Let's take a closer look at each principle:
+
+=== Single Responsibility Principle (SRP)
+The SRP states that a class/module/file/function should have only one reason to change. In other words, it should have a single responsibility. Applying the SRP in embedded systems development can lead to several benefits. It improves code readability, reusability, and testability. For example, separating concerns related to hardware interaction, communication protocols, and data processing into distinct classes adheres to SRP.
+
+=== Open-Closed Principle (OCP)
+The OCP suggests that software entities should be open for extension but closed for modification. This principle encourages designing systems that can accommodate new features without modifying existing code. In the context of embedded systems, adhering to OCP promotes code reuse, maintainability, and the creation of stable APIs. For instance, adding new device driver without modifying the core system demonstrates the application of OCP.
+
+==== Examples
+[cols="1,1"]
+|===
+| Bad
+| Good
+|===
+
+|===
+2+|Shape.h
+a|
+[source,c]
+[.small]
+----
+typedef enum {
+    ShapeType_Rectangle,
+    ShapeType_Square
+} ShapeType;
+
+typedef struct {
+    ShapeType type;
+} Shape;
+
+Shape * Shape_init(Shape * const self, ShapeType const type);
+float Shape_area(Shape * const self);
+----
+a|
+[source,c]
+[.small]
+----
+typedef struct Shape Shape;
+typedef float (*Shape_areaFun)(Shape * const self);
+struct Shape {
+    Shape_areaFun area;
+};
+
+Shape * Shape_init(Shape * const self, Shape_areaFun const area);
+float Shape_area(Shape * const self);
+----
+|===
+
+|===
+2+|Shape.c
+a|
+[source,c]
+[.small]
+----
+#include "Shape.h"
+#include "Rectangle.h"
+#include "Square.h"
+
+Shape * Shape_init(Shape * const self, ShapeType const type) {
+    self->type = type;
+    return self;
+}
+
+float Shape_area(Shape * const self) {
+    float area;
+    switch (self->type) {
+        case ShapeType_Rectangle: {
+            area = Rectangle_area((Rectangle *)self);
+        }
+        break;
+        case ShapeType_Square: {
+            area = Square_area((Square *)self);
+        }
+        break;
+        default: {
+            // handle invalid type
+        }
+        break;
+    }
+    return area;
+}
+----
+a|
+[source,c]
+[.small]
+----
+#include "Shape.h"
+
+Shape * Shape_init(Shape * const self, Shape_areaFun const area) {
+    self->area = area;
+    return self;
+}
+
+float Shape_area(Shape * const self) {
+    return self->area(self);
+}
+----
+|===
+
+|===
+2+|Rectangle.h
+2+a|
+[source,c]
+[.small]
+----
+#include "Shape.h"
+
+typedef struct {
+    Shape shape;
+    uint32_t width;
+    uint32_t height;
+} Rectangle;
+
+Rectangle * Rectangle_init(
+    Rectangle * const self,
+    uint32_t const width, uint32_t const height
+);
+float Rectangle_area(Rectangle * const self);
+----
+|===
+
+|===
+2+|Rectangle.c
+a|
+[source,c]
+[.small]
+----
+#include "Rectangle.h"
+
+Rectangle * Rectangle_init(
+    Rectangle * const self,
+    uint32_t const width, uint32_t const height
+) {
+    Shape_init((Shape *)self, ShapeType_Rectangle);
+    self->width = width;
+    self->height = height;
+    return self;
+}
+
+float Rectangle_area(Rectangle * const self) {
+    return self->width * self->height;
+}
+----
+a|
+[source,c]
+[.small]
+----
+#include "Rectangle.h"
+
+Rectangle * Rectangle_init(
+    Rectangle * const self,
+    uint32_t const width, uint32_t const height
+) {
+    Shape_init((Shape *)self, (Shape_areaFun)Rectangle_area);
+    self->width = width;
+    self->height = height;
+    return self;
+}
+
+float Rectangle_area(Rectangle * const self) {
+    return self->width * self->height;
+}
+----
+|===
+
+|===
+2+|Square.h
+2+a|
+[source,c]
+[.small]
+----
+#include "Shape.h"
+
+typedef struct {
+    Shape shape;
+    uint32_t side;
+} Square;
+
+Square * Square_init(Square * const self, uint32_t const side);
+float Square_area(Square * const self);
+----
+|===
+
+|===
+2+|Square.c
+a|
+[source,c]
+[.small]
+----
+#include "Square.h"
+
+Square * Square_init(Square * const self, uint32_t const side) {
+    Shape_init((Shape *)self, ShapeType_Square);
+    self->side = side;
+    return self;
+}
+
+float Square_area(Square * const self) {
+    return self->side * self->side;
+}
+----
+a|
+[source,c]
+[.small]
+----
+#include "Square.h"
+
+Square * Square_init(Square * const self, uint32_t const side) {
+    Shape_init((Shape *)self, (Shape_areaFun)Square_area);
+    self->side = side;
+    return self;
+}
+
+float Square_area(Square * const self) {
+    return self->side * self->side;
+}
+----
+|===
+
+|===
+2+|main.c
+2+a|
+[source,c]
+[.small]
+----
+#include "Shape.h"
+#include "Rectangle.h"
+#include "Square.h"
+
+int main(void) {
+    Shape * rectangle = (Shape *)Rectangle_init(&(Rectangle){}, 5, 10);
+    Shape * square = (Shape *)Square_init(&(Square){}, 5);
+    float rectangleArea = Shape_area(rectangle);
+    float squareArea = Shape_area(square);
+    printf("%f %f\n", rectangleArea, squareArea);
+    return 0;
+}
+----
+|===
+
+=== Liskov Substitution Principle (LSP)
+The LSP states that objects of a superclass should be replaceable with objects of their subclasses without affecting the correctness of the program. It ensures proper behavior when using inheritance and polymorphism. When developing embedded systems, adhering to LSP is crucial when defining interfaces for different types of sensors or actuators. This principle ensures that the code can seamlessly substitute one implementation with another, without introducing unexpected issues.
+
+=== Interface Segregation Principle (ISP)
+The ISP suggests that clients should not be forced to depend on interfaces they do not use. Interfaces should be specific to the needs of the client, without unnecessary methods. In the realm of embedded systems, applying ISP improves code maintainability and modularity. Designing interfaces for different device types, where clients only depend on the methods they require, reduces coupling and allows for better system scalability.
+
+=== Dependency Inversion Principle (DIP)
+The DIP emphasizes depending upon abstractions, not concretions. High-level modules should not depend on low-level modules, but both should depend on abstractions. In embedded systems development, adhering to DIP allows for loose coupling, easier testing, and the ability to swap implementation details without affecting the overall system. Separating high-level business logic modules from low-level hardware interaction modules demonstrates the application of DIP.
+
+Throughout this chapter, we will provide practical examples and case studies that demonstrate the application of SOLID principles in embedded systems development. By understanding and applying these principles, developers can create software that is flexible, maintainable, and scalable in the context of embedded systems.
