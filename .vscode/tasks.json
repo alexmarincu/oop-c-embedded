@@ -43,7 +43,8 @@
             "dependsOrder": "sequence",
             "presentation": {
                 "panel": "new"
-            }
+            },
+            "problemMatcher": []
         },
         {
             "label": "all: Build",
@@ -62,8 +63,8 @@
                     ";",
                     "cd ../push_button; ceedling release",
                     ";",
-                    "cd ../app; ceedling release",
-                ],
+                    "cd ../app; ceedling release"
+                ]
             },
             "linux": {
                 "command": [
@@ -79,8 +80,8 @@
                     "&&",
                     "cd ../push_button && ceedling release",
                     "&&",
-                    "cd ../app && ceedling release",
-                ],
+                    "cd ../app && ceedling release"
+                ]
             },
             "group": "build",
             "problemMatcher": [],
@@ -143,8 +144,8 @@
                     ";",
                     "cd ../push_button; ceedling clobber",
                     ";",
-                    "cd ../app; ceedling clobber",
-                ],
+                    "cd ../app; ceedling clobber"
+                ]
             },
             "linux": {
                 "command": [
@@ -160,8 +161,8 @@
                     "&&",
                     "cd ../push_button && ceedling clobber",
                     "&&",
-                    "cd ../app && ceedling clobber",
-                ],
+                    "cd ../app && ceedling clobber"
+                ]
             },
             "group": "build",
             "problemMatcher": [],
@@ -226,8 +227,8 @@
                     ";",
                     "cd ../push_button; ceedling clobber release",
                     ";",
-                    "cd ../app; ceedling clobber release",
-                ],
+                    "cd ../app; ceedling clobber release"
+                ]
             },
             "linux": {
                 "command": [
@@ -243,8 +244,8 @@
                     "&&",
                     "cd ../push_button && ceedling clobber release",
                     "&&",
-                    "cd ../app && ceedling clobber release",
-                ],
+                    "cd ../app && ceedling clobber release"
+                ]
             },
             "group": "build",
             "problemMatcher": [],
@@ -312,8 +313,8 @@
                     ";",
                     "cd ../push_button; ceedling test:all",
                     ";",
-                    "cd ../app; ceedling test:all",
-                ],
+                    "cd ../app; ceedling test:all"
+                ]
             },
             "linux": {
                 "command": [
@@ -329,8 +330,8 @@
                     "&&",
                     "cd ../push_button && ceedling test:all",
                     "&&",
-                    "cd ../app && ceedling test:all",
-                ],
+                    "cd ../app && ceedling test:all"
+                ]
             },
             "group": "test",
             "problemMatcher": [],
@@ -395,8 +396,8 @@
                     ";",
                     "cd ../push_button; ceedling gcov:all utils:gcov",
                     ";",
-                    "cd ../app; ceedling gcov:all utils:gcov",
-                ],
+                    "cd ../app; ceedling gcov:all utils:gcov"
+                ]
             },
             "linux": {
                 "command": [
@@ -412,8 +413,8 @@
                     "&&",
                     "cd ../push_button && ceedling gcov:all utils:gcov",
                     "&&",
-                    "cd ../app && ceedling gcov:all utils:gcov",
-                ],
+                    "cd ../app && ceedling gcov:all utils:gcov"
+                ]
             },
             "group": "test",
             "problemMatcher": [],
@@ -483,30 +484,10 @@
             "options": {
                 "cwd": "${fileDirname}"
             },
-            "dependsOn": [
-                "rm doc media"
-            ],
             "presentation": {
                 "panel": "new"
             }
-        },
-        {
-            "label": "rm doc media",
-            "type": "shell",
-            "windows": {
-                "command": "Remove-Item -Path media -Recurse -Force"
-            },
-            "linux": {
-                "command": "rm -rf media"
-            },
-            "problemMatcher": [],
-            "options": {
-                "cwd": "${fileDirname}"
-            },
-            "presentation": {
-                "panel": "new"
-            }
-        },
+        }
     ],
     "inputs": [
         {
