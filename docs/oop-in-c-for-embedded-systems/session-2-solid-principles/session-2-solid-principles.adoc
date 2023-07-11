@@ -6,8 +6,6 @@
 :pdf-theme: theme.yml
 
 == Overview of SOLID Principles
-Embedded systems play a crucial role in various industries, from automotive to healthcare. However, developing reliable and maintainable embedded software can be challenging. That's where SOLID principles come in. We will delve into the five SOLID principles and explore their application in embedded systems development.
-
 The SOLID principles are a set of guidelines that help developers design software that is easy to maintain, scalable, and flexible.
 
 The five SOLID principles are:
@@ -22,6 +20,179 @@ Understanding these principles is essential for building robust embedded systems
 
 === Single Responsibility Principle (SRP)
 The SRP states that a class/module/file/function should have only one reason to change. In other words, it should have a single responsibility. Applying the SRP in embedded systems development can lead to several benefits. It improves code readability, reusability, and testability. For example, separating concerns related to hardware interaction, communication protocols, and data processing into distinct classes adheres to SRP.
+
+==== Examples
+[cols="1,1"]
+|===
+| Bad
+| Good
+|===
+
+|===
+2+|AccelerationAccumulator.h
+a|
+[source,c]
+[.small]
+----
+typedef struct {
+    int16_t x;
+    int16_t y;
+    int16_t z;
+} Acceleration3d;
+
+typedef struct {
+    Acceleration3d accumulatedAcceleration3dIn098mg;
+    uint8_t count;
+} AccelerationAccumulator;
+
+AccelerationAccumulator * AccelerationAccumulator_init(AccelerationAccumulator * const self);
+void AccelerationAccumulator_accumulate(
+    AccelerationAccumulator * const self, Acceleration3d * const acceleration3dIn098mg
+);
+void AccelerationAccumulator_reset(AccelerationAccumulator * const self);
+Acceleration3d * AccelerationAccumulator_calculateAverage(
+    AccelerationAccumulator * const self, Acceleration3d * const acceleration3dIn098mg
+);
+----
+a|
+[source,c]
+[.small]
+----
+#include "Acceleration3d.h"
+
+typedef struct {
+    Acceleration3d accumulatedAcceleration3dIn098mg;
+    uint8_t count;
+} AccelerationAccumulator;
+
+AccelerationAccumulator * AccelerationAccumulator_init(AccelerationAccumulator * const self);
+void AccelerationAccumulator_accumulate(
+    AccelerationAccumulator * const self, Acceleration3d * const acceleration3dIn098mg
+);
+void AccelerationAccumulator_reset(AccelerationAccumulator * const self);
+Acceleration3d * AccelerationAccumulator_calculateAverage(
+    AccelerationAccumulator * const self, Acceleration3d * const acceleration3dIn098mg
+);
+----
+|===
+
+
+|===
+2+|AccelerationAccumulator.c
+a|
+[source,c]
+[.small]
+----
+#include "AccelerationAccumulator.h"
+
+AccelerationAccumulator * AccelerationAccumulator_init(AccelerationAccumulator * const self) {
+    self->accumulatedAcceleration3dIn098mg = (Acceleration3d){ 0 };
+    self->count = 0;
+    return self;
+}
+
+void AccelerationAccumulator_accumulate(
+    AccelerationAccumulator * const self, Acceleration3d * const acceleration3dIn098mg
+) {
+    self->accumulatedAcceleration3dIn098mg.x += acceleration3dIn098mg->x;
+    self->accumulatedAcceleration3dIn098mg.y += acceleration3dIn098mg->y;
+    self->accumulatedAcceleration3dIn098mg.z += acceleration3dIn098mg->z;
+    self->count++;
+}
+
+void AccelerationAccumulator_reset(AccelerationAccumulator * const self) {
+    AccelerationAccumulator_init(self);
+}
+
+Acceleration3d * AccelerationAccumulator_calculateAverage(
+    AccelerationAccumulator * const self, Acceleration3d * const acceleration3dIn098mg
+) {
+    *acceleration3dIn098mg = self->accumulatedAcceleration3dIn098mg;
+    if (self->count > 0) {
+        acceleration3dIn098mg->x /= self->count;
+        acceleration3dIn098mg->y /= self->count;
+        acceleration3dIn098mg->z /= self->count;
+    }
+    return acceleration3dIn098mg;
+}
+----
+a|
+[source,c]
+[.small]
+----
+#include "AccelerationAccumulator.h"
+
+AccelerationAccumulator * AccelerationAccumulator_init(AccelerationAccumulator * const self) {
+    self->accumulatedAcceleration3dIn098mg = (Acceleration3d){ 0 };
+    self->count = 0;
+    return self;
+}
+
+void AccelerationAccumulator_accumulate(
+    AccelerationAccumulator * const self, Acceleration3d * const acceleration3dIn098m
+) {
+    Acceleration3d_plus(&self->accumulatedAcceleration3dIn098mg, acceleration3dIn098mg);
+    self->count++;
+}
+
+void AccelerationAccumulator_reset(AccelerationAccumulator * const self) {
+    AccelerationAccumulator_init(self);
+}
+
+Acceleration3d * AccelerationAccumulator_calculateAverage(
+    AccelerationAccumulator * const self, Acceleration3d * const acceleration3dIn098mg
+) {
+    *acceleration3dIn098mg = self->accumulatedAcceleration3dIn098mg;
+    if (self->count > 0) {
+        *acceleration3dIn098mg = *Acceleration3d_div(acceleration3dIn098mg, self->count);
+    }
+    return acceleration3dIn098mg;
+}
+----
+|===
+
+|===
+2+|Acceleration3d.h
+a|
+a|
+[source,c]
+[.small]
+----
+typedef struct {
+    int16_t x;
+    int16_t y;
+    int16_t z;
+} Acceleration3d;
+
+Acceleration3d * Acceleration3d_plus(Acceleration3d * const self, Acceleration3d * const other);
+Acceleration3d * Acceleration3d_div(Acceleration3d * const self, uint8_t value);
+----
+|===
+
+|===
+2+|Acceleration3d.c
+a|
+a|
+[source,c]
+[.small]
+----
+#include "Acceleration3d.h"
+
+Acceleration3d * Acceleration3d_plus(Acceleration3d * const self, Acceleration3d * const other) {
+    self->x += other->x;
+    self->y += other->y;
+    self->z += other->z;
+    return self;
+}
+
+Acceleration3d * Acceleration3d_div(Acceleration3d * const self, uint8_t value) {
+    self->x /= value;
+    self->y /= value;
+    self->z /= value;
+    return self;
+}
+----
+|===
 
 === Open-Closed Principle (OCP)
 The OCP suggests that software entities should be open for extension but closed for modification. This principle encourages designing systems that can accommodate new features without modifying existing code. In the context of embedded systems, adhering to OCP promotes code reuse, maintainability, and the creation of stable APIs. For instance, adding new device driver without modifying the core system demonstrates the application of OCP.
